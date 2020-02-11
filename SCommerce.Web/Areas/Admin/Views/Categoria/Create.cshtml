@@ -1,0 +1,128 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model SCommerce.Web.Areas.Admin.ViewModels.CategoriaViewModel
+
+@{
+    ViewData["Title"] = "Cadastrar Categoria";
+    Layout = "~/Views/Shared/_AdminDashboard.cshtml";
+}
+
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    @*<link rel="stylesheet" href="~/dashboard_components/bootstrap/dist/css/bootstrap.min.css">*@
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="~/dashboard_components/plugins/iCheck/all.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/dashboard_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="~/dashboard_components/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    @*<link rel="stylesheet" href="~/dashboard_components/dist/css/AdminLTE.min.css">*@
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Categoria
+            @*<small>Cadastro</small>*@
+        </h1>
+        <ol class="breadcrumb">
+            <li><a asp-action="Index"><i class="fa fa-home"></i>Dashboard</a></li>
+            <li class="active">Categorias</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="box b-commerce-box">
+            <div class="box-header">
+                <h2>Adicionar Categoria</h2>
+            </div>
+            <div class="box-body">
+                <form asp-controller="Categoria" asp-action="Create" method="post" role="form">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label asp-for="IdCategoriaPai" class="control-label"></label>
+                            <select asp-for="IdCategoriaPai" asp-items="@ViewBag.Categorias" class="form-control">
+                                <option disabled selected>---- Selecione ----</option>
+                            </select>
+                            <span asp-validation-for="IdCategoriaPai" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label asp-for="Nome" class="control-label"></label>
+                            <input asp-for="Nome" class="form-control" />
+                            <span asp-validation-for="Nome" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label asp-for="NLeft" class="control-label"></label>
+                            <input asp-for="NLeft" class="form-control" />
+                            <span asp-validation-for="NLeft" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-groupm col-md-4">
+                            <label asp-for="NRight" class="control-label"></label>
+                            <input asp-for="NRight" class="form-control" />
+                            <span asp-validation-for="NRight" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-2">
+                            <div class="checkbox">
+                                <label>
+                                    <input asp-for="Ativo" /> @Html.DisplayNameFor(model => model.Ativo)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <div class="checkbox">
+                                <label>
+                                    <input asp-for="Root" /> @Html.DisplayNameFor(model => model.Root)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div clas="row">
+                        <div class="form-group col-md-2">
+                            <button type="submit" class="btn btn-success btn-block btn-social">
+                                <i class="fa fa-save"></i> Salvar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+    <!-- jQuery 3 -->
+    <script src="~/dashboard_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="~/dashboard_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- iCheck 1.0.1 -->
+    <script src="~/dashboard_components/plugins/iCheck/icheck.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/dashboard_components/dist/js/demo.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //iCheck for checkbox and radio inputs
+        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal-blue'
+        })
+        //Red color scheme for iCheck
+        $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+            checkboxClass: 'icheckbox_minimal-red',
+            radioClass: 'iradio_minimal-red'
+        })
+        //Flat red color scheme for iCheck
+        $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+            checkboxClass: 'icheckbox_flat-green',
+            radioClass: 'iradio_flat-green'
+        })
+    });
+
+</script>
+

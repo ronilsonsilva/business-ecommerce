@@ -1,0 +1,124 @@
+﻿@model bCommerce.b2SalesFashion.ViewModels.CarrinhoViewModel
+
+
+@{
+    ViewData["Title"] = "Carrinho";
+    Layout = "~/Views/Shared/_LayoutBSaleFashion.cshtml";
+}
+
+<!-- Breadcurb AREA -->
+<div class="breadcurb-area">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li>Carrinho</li>
+        </ul>
+    </div>
+</div>
+<!-- Breadcurb AREA -->
+<!-- Chart AREA -->
+<div class="chart-area">
+    <div class="container">
+        <div class="row">
+            @if (Model.ID != Guid.Empty)
+            {
+                <div class="col-md-12">
+                    <div class="chart-item table-responsive fix">
+                        <table class="col-md-12">
+                            <thead>
+                                <tr>
+                                    <th class="th-product">Produto</th>
+                                    <th class="th-details">Detalhes</th>
+                                    <th class="th-price">Preço</th>
+                                    <th class="th-total">Sub Total</th>
+                                    <th class="th-qty">Quantidade</th>
+                                    <th class="th-delate">Excluir</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (var item in Model.CarrinhoProdutos)
+                                    {
+                                        var base64 = Convert.ToBase64String(item.Produto?.imagensProduto?.FirstOrDefault()?.Arquivo);
+                                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                        <tr>
+                                            <td class="th-product">
+                                                <a href='@Url.Action("Produto","Home", new { idProduto = item.IdProduto})'><img src="@imgSrc" alt="cart"></a>
+                                            </td>
+                                            <td class="th-details">
+                                                <h2><a href='@Url.Action("Produto","Home", new { idProduto = item.IdProduto})'>@item.Produto?.NomeExibicao</a></h2>
+                                                <p>@item.Produto?.DescricaoCurta</p>
+                                            </td>
+                                            <td class="th-price"><span id="valor_@item.ID">R$ @item.Produto.Preco</span></td>
+                                            <td class="th-total"><span id="subtotal_@item.ID">R$ @(item.Produto.Preco * item.Quantidade)</span></td>
+                                            <td class="th-qty">
+                                                <input type="number" min="1" placeholder="1" id="@item.ID" value="@item.Quantidade">
+                                                <a href='#' class="alterarQtdProduto" id="alterar_@item.ID">  <i class="fa fa-check"></i></a>
+                                            </td>
+                                            <td class="th-delate"><a href='#' class="excluirProduto" id="excluir_@item.ID"><i class="fa fa-trash"></i></a></td>
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th><h6><b>Valor Total: <span id="vlrTotalCarrinho"></span></b></h6></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="cart-button">
+                        <a asp-controller="Home" asp-action="Index"><button type="button" class="btn">Continuar Comprando</button></a>
+                        <a href='@Url.Action("GerarOC","Home",new { idCarrinho = Model.ID })'><button type="button" class="btn floatright">Concluir Pedido</button></a>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="col-md-12">
+                    <div class="chart-item table-responsive fix">
+                        <table class="col-md-12">
+                            <thead>
+                                <tr>
+                                    <th class="th-product">Produto</th>
+                                    <th class="th-details">Detalhes</th>
+                                    <th class="th-price">Preço</th>
+                                    <th class="th-total">Sub Total</th>
+                                    <th class="th-qty">Quantidade</th>
+                                    <th class="th-delate">Excluir</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="cart-button">
+                        <a asp-controller="Home" asp-action="Index"><button type="button" class="btn">Iniciar Compras</button></a>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+    </div>
+</div>
+
+<!-- jquery-1.11.3.min js
+        ============================================ -->
+<script src="~/b-sale_ecommerce_fashion/js/vendor/jquery-1.11.3.min.js"></script>
+
+<!-- bootstrap js
+============================================ -->
+<script src="~/b-sale_ecommerce_fashion/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="~/js/Carrinho.js"></script>
+<script type="text/javascript">
+
+</script>

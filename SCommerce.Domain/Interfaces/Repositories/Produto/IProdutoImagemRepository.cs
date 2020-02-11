@@ -1,0 +1,12 @@
+﻿using SCommerce.Domain.Entities.Produto;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SCommerce.Domain.Interfaces.Repositories.Produto
+{
+    public interface IProdutoImagemRepository : IRepositoryBase<ProdutoImagem>
+    {
+        IEnumerable<ProdutoImagem> GetPorProduto(Guid idProduto);
+    }
+}

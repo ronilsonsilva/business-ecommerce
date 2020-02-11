@@ -1,0 +1,201 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model IEnumerable<SCommerce.Web.Areas.Admin.ViewModels.ClienteViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminDashboard.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Clientes
+            <small>Carteira de Clientes</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a asp-area="Admin" asp-controller="Dashboard" asp-action="Index"><i class="fa fa-home"></i>Dashboard</a></li>
+            <li class="active">Clientes</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>@Model.Count()</h3>
+                        <p>Total de Clientes</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion-ios-box-outline"></i>
+                    </div>
+                    <a href='@Url.Action("Create","Cliente")' class="small-box-footer">Adicionar Novo <i class="fa fa-plus"></i></a>
+                </div>
+            </div>
+            @*<!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-yellow">
+                        <div class="inner">
+                            <h3>@ViewBag.CategorisComProdutos</h3>
+
+                            <p>Categorias com produtos</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion-ios-cart"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">Listar <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>*@
+            <!-- ./col -->
+            @*<div class="col-lg-3 col-xs-6">
+                    <div class="small-box bg-green">
+                        <div class="inner">
+                            <h3>@Model.Where(e => e.Ativo == true).Count()</h3>
+
+                            <p>Clientes Ativa</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion-android-checkmark-circle"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">Listar Ativos <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>*@
+
+            <!-- ./col -->
+            @*<div class="col-lg-3 col-xs-6">
+                    <div class="small-box bg-red">
+                        <div class="inner">
+                            <h3>@Model.Where(e => e.Ativo == false).Count()</h3>
+
+                            <p>Categorias Inativa</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion-ios-locked-outline"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">Listar Inativos <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>*@
+            <!-- ./col -->
+        </div>
+
+        <div class="">
+            <div class="box b-commerce-box">
+                <div class="box-header">
+                    <div class="row">
+                    </div>
+                </div>
+                <div class="box-body">
+                    <table id="table-clientes" class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Nome)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Email)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.NewsLetter)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Ativo)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Cadastro)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Atualizado)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Nome)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NewsLetter)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Ativo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Cadastro)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Atualizado)
+                                    </td>
+                                    <td>
+                                        <a href='@Url.Action("Edit", "Cliente", new { idCliente = item.ID  })' class="mall-box-footers"><i class="fa fa-edit"></i></a>
+                                        @*<a href='@Url.Action("Details", "Cliente", new { idCliente = item.ID })' class="mall-box-footers"><i class="fa fa-search"></i></a>*@
+                                        <a href='@Url.Action("Delete", "Cliente", new { idCliente = item.ID })' class="mall-box-footers"><i class="fa  fa-trash-o"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Nome)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Email)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.NewsLetter)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Ativo)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Cadastro)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Atualizado)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+<!-- jQuery 3 -->
+<script src="~/dashboard_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="~/dashboard_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script src="~/dashboard_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/dashboard_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!-- SlimScroll -->
+@*<script src="~/dashboard_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>*@
+<!-- FastClick -->
+@*<script src="~/dashboard_components/fastclick/lib/fastclick.js"></script>*@
+<!-- AdminLTE App -->
+@*<script src="~/dashboard_components/dist/js/adminlte.min.js"></script>*@
+<!-- AdminLTE for demo purposes -->
+@*<script src="~/dashboard_components/dist/js/demo.js"></script>*@
+<!-- page script -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#table-clientes').DataTable();
+    });
+</script>
+
+
+

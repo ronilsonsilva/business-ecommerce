@@ -1,0 +1,129 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model SCommerce.Web.Areas.Admin.ViewModels.LojaViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_AdminDashboard.cshtml";
+}
+
+
+
+<!-- Tell the browser to be responsive to screen width -->
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<!-- Bootstrap 3.3.7 -->
+@*<link rel="stylesheet" href="~/dashboard_components/bootstrap/dist/css/bootstrap.min.css">*@
+<!-- iCheck for checkboxes and radio inputs -->
+<link rel="stylesheet" href="~/dashboard_components/plugins/iCheck/all.css">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="~/dashboard_components/font-awesome/css/font-awesome.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet" href="~/dashboard_components/Ionicons/css/ionicons.min.css">
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Loja
+            <small>Excluir @Model.Nome</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a asp-action="Index"><i class="fa fa-home"></i>Dashboard</a></li>
+            <li class="active">Lojas</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="box b-commerce-box">
+            <div class="box-header">
+                <h4>O registro abaixo será excluído, continuar?</h4>
+            </div>
+            <div class="box-body">
+                <form asp-controller="Lojas" asp-action="Delete" method="post" role="form">
+
+                    <div class="row">
+                        <input hidden asp-for="ID"/>
+                        <div class="col-sm-12 col-md-12">
+
+                            <dl class="dl-horizontal">
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.LojaMatriz)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.LojaMatriz)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Matriz)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.Matriz)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Nome)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.Nome)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.RazaoSocial)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.RazaoSocial)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.CNPJ)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.CNPJ)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.InscricaoEstadual)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.InscricaoEstadual)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Ativa)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.Ativa)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Deletada)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.Deletada)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Cadatro)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.Cadatro)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Atualizado)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.Atualizado)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.ID)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.ID)
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-danger btn-block btn-social">
+                                    <i class="fa fa-trash-o white"></i> Excluir
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>

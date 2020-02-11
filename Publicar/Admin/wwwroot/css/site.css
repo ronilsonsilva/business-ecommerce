@@ -1,0 +1,47 @@
+﻿.content-wrapper,
+.main-footer {
+    margin-left: 115px;
+}
+
+i.fa.fa-edit {
+    color: #00a65a;
+}
+
+i.fa.fa-search {
+    color: #00add7;
+}
+
+i.fa.fa-trash-o {
+    color: red;
+}
+
+i.fa.fa-trash-o.white {
+    color: white;
+}
+
+i.fa.fa-edit.white {
+    color: white;
+}
+
+button.btn.btn-success.btn-block.btn-social.btn-inline {
+    margin-top: 23px;
+}
+
+button.btn-excluir-imagem {
+    margin-left: -26px;
+}
+
+i.fa.fa-arrows {
+    color: #1dc0f3;
+}
+
+footer.main-footer {
+    padding: 10px;
+    margin-top: -21px;
+}
+
+@media (max-width: 767px) {
+    .content-wrapper, .main-footer {
+        margin-left: 0;
+    }
+}

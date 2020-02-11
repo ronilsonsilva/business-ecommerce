@@ -1,0 +1,191 @@
+﻿@model bCommerce.b2SalesFashion.ViewModels.LojaHomeViewModel
+
+
+@{
+    ViewData["Title"] = "Loja";
+    Layout = "~/Views/Shared/_LayoutBSaleFashion.cshtml";
+}
+
+
+<form asp-controller="Home" asp-action="Loja">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <!-- Breadcurb AREA -->
+    <div class="breadcurb-area">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><a asp-action="Index">Home</a></li>
+                <li><a href='@Url.Action("Loja", "Home")'>@Model.NomeCategoria</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- Breadcurb AREA -->
+    <!-- Product Item AREA -->
+    <div class="product-item-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-4">
+                    <div class="product-item-categori">
+                        <div class="product-type">
+                            <h2>Outros Produtos</h2>
+                            <ul>
+                                @foreach (var item in Model.CategoriasHomeViewModels)
+                                {
+                                    if (item.ID == Model.IdCategoria)
+                                    {
+                                        <li><a href='@Url.Action("Loja","Home", new { idCategoria = item.ID, palavraChave = "", btnSubmit = "" })' class="active"><i class="fa fa-angle-right"></i>@item.Nome</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a href='@Url.Action("Loja","Home", new { idCategoria = item.ID, palavraChave = "", btnSubmit = "" })'><i class="fa fa-angle-right"></i>@item.Nome</a></li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="price-filter">
+                        <h2>Filtrar por preço</h2>
+                        <div id="slider-range"></div>
+                        <button class="btn btn-default">Filtrar</button>
+                        <p>
+                            <label for="amount">Preço:</label>
+                            <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                        </p>
+                    </div>
+                    @*<div class="filter-size-area">
+                            <h2>Filter by Size</h2>
+                            <div class="filter-size">
+                                <div class="filter-size-left">
+                                    <a href="#"><p>M (6)</p></a>
+                                    <a href="#"><p>X (7)</p></a>
+                                    <a href="#"><p>XS (10)</p></a>
+                                </div>
+                                <div class="filter-size-right">
+                                    <a href="#"><p>M (6)</p></a>
+                                    <a href="#"><p>X (7)</p></a>
+                                    <a href="#"><p>XS (10)</p></a>
+                                </div>
+                            </div>
+                        </div>*@
+                    @*<div class="add-shop">
+                            <div class="add-kids single-add">
+                                <a href="#"><img src="img/banner/kids-ad.jpg" alt="add"></a>
+                            </div>
+                            <div class="add-dress single-add">
+                                <a href="#"><img src="img/banner/kids-ad-2.jpg" alt="add"></a>
+                            </div>
+                        </div>*@
+                </div>
+                <div class="col-md-9 col-sm-8">
+                    <div class="product-item-list">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="product-item-heading">
+                                    <div class="item-heading-title">
+                                        <h2>@Model?.NomeCategoria</h2>
+                                    </div>
+                                    <div class="result-short-view">
+                                        <div class="result-short">
+                                            <p>Exibindo @Model.Produtos?.Count produtos encontrado </p>
+                                            <div class="result-short-selection">
+                                                <select>
+                                                    <option>Ordenação padrão</option>
+                                                    <option>Ordenar por popularidade</option>
+                                                    <option>Ordenar por melhor avaliação</option>
+                                                    <option>Ordenar por mais recentes</option>
+                                                    <option>Ordenar por preço crescente</option>
+                                                    <option>Ordenar por preço decrescente</option>
+                                                </select>
+                                                <i class="fa fa-sort-alpha-asc"></i>
+                                            </div>
+                                        </div>
+                                        <div class="view-mode">
+                                            <a href="#" class="active"><i class="fa fa-th-large"></i></a>
+                                            <a href="#"><i class="fa fa-th-list"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            @if (Model.Produtos != null)
+                            {
+                                foreach (var item in Model.Produtos)
+                                {
+                                    <div class="col-md-4 col-sm-6">
+                                        <div class="single-item-area">
+                                            <div class="single-item">
+                                                <div class="product-item-img">
+                                                    <a href='@Url.Action("Produto", "Home", new { idProduto = item.ID })'>
+                                                        @{
+                                                            if (item.imagensProduto.Count >= 2)
+                                                            {
+                                                                var base64 = Convert.ToBase64String(item.imagensProduto.ToList()[0].Arquivo);
+                                                                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                                                var base642 = Convert.ToBase64String(item.imagensProduto.ToList()[1].Arquivo);
+                                                                var imgSrc2 = String.Format("data:image/gif;base64,{0}", base642);
+
+                                                                <img class="primary-img" src="@imgSrc" alt="item">
+                                                                <img class="secondary-img" src="@imgSrc2" alt="item">
+                                                            }
+
+                                                        }
+                                                    </a>
+                                                    <div class="product-item-action">
+                                                        <a href='@Url.Action("Produto", "Home", new { idProduto = item.ID })'><i class="fa fa-external-link-alt"></i></a>
+                                                        <a href='#' class="link-add-produto-carrinho" id="produto_@item.ID"><i class="fa fa-shopping-cart"></i></a>
+                                                    </div>
+                                                </div>
+                                                <div class="single-item-content">
+                                                    <h2><a href='@Url.Action("Produto", "Home", new { idProduto = item.ID })'>@item.NomeExibicao</a></h2>
+                                                    <div class="best-product-rating">
+                                                        <a href="#"><i class="fa fa-star"></i></a>
+                                                        <a href="#"><i class="fa fa-star"></i></a>
+                                                        <a href="#"><i class="fa fa-star"></i></a>
+                                                        <a href="#"><i class="fa fa-star"></i></a>
+                                                        <a href="#"><i class="fa fa-star"></i></a>
+                                                    </div>
+                                                    <h3>R$@item?.Preco</h3>
+                                                </div>
+                                            </div>
+                                            <div class="item-action-button fix">
+                                                <a href='#' class="link-add-produto-carrinho" id="produto_@item.ID">Adicionar no carrinho</a>
+                                                <div class="item-action-icon">
+                                                    <a href="#"><i class="fa fa-heart"></i></a>
+                                                    <a href="#"><i class="fa fa-signal"></i></a>
+                                                    <a href='@Url.Action("Produto", "Home", new { idProduto = item.ID })'><i class="fa fa-search"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+
+
+                        </div>
+                    </div>
+                    @*<div class="shop-pagination floatright">
+                            <ul class="pagination">
+                                <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
+                                <li><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                            </ul>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+<!-- jquery-1.11.3.min js
+        ============================================ -->
+<script src="~/b-sale_ecommerce_fashion/js/vendor/jquery-1.11.3.min.js"></script>
+
+<!-- bootstrap js
+============================================ -->
+<script src="~/b-sale_ecommerce_fashion/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="~/js/Loja.js"></script>

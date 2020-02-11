@@ -1,0 +1,484 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model SCommerce.Web.Areas.Admin.ViewModels.ProdutoViewModel
+@using System.IO
+@using static System.Net.Mime.MediaTypeNames;
+
+@{
+    ViewData["Title"] = "Editar Produto - " + Model.Nome;
+    Layout = "~/Views/Shared/_AdminDashboard.cshtml";
+}
+
+<!-- Tell the browser to be responsive to screen width -->
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<!-- Bootstrap 3.3.7 -->
+@*<link rel="stylesheet" href="~/dashboard_components/bootstrap/dist/css/bootstrap.min.css">*@
+<!-- iCheck for checkboxes and radio inputs -->
+<link rel="stylesheet" href="~/dashboard_components/plugins/iCheck/all.css">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="~/dashboard_components/font-awesome/css/font-awesome.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet" href="~/dashboard_components/Ionicons/css/ionicons.min.css">
+<link rel="stylesheet" href="~/summernote-0.8.9-dist/dist/summernote.css">
+<link rel="stylesheet" href="~/css/site.css">
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Produtos
+            <small>Editar</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a asp-action="Index"><i class="fa fa-home"></i>Home</a></li>
+            <li class="active">Produtos</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="box b-commerce-box">
+            <div class="box-header">
+                <h2>Editar</h2>
+            </div>
+            <div class="box-body">
+                <form asp-controller="Produto" asp-action="Edit" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input hidden asp-for="ID" />
+                    @*<input hidden asp-for="IdCategoriaPadrao" />*@
+                    <input hidden asp-for="LojaId" />
+                    <input hidden asp-for="Cadastro" />
+                    <input hidden asp-for="Atualizado" />
+
+
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#tab_info_basico" data-toggle="tab">Básico</a></li>
+                            <li><a href="#tab_info_custo" data-toggle="tab">Custo</a></li>
+                            <li><a href="#tab_atributos" data-toggle="tab">Atributos</a></li>
+                            <li><a href="#tab_descricao" data-toggle="tab">Descrição</a></li>
+                            <li><a href="#tab_imagens" data-toggle="tab">Imagens</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab_info_basico">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="Nome" class="control-label"></label>
+                                            <input asp-for="Nome" class="form-control" />
+                                            <span asp-validation-for="Nome" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="NomeExibicao" class="control-label"></label>
+                                            <input asp-for="NomeExibicao" class="form-control" />
+                                            <span asp-validation-for="NomeExibicao" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="IdCategoriaPadrao" class="control-label"></label>
+                                            <select asp-for="IdCategoriaPadrao" asp-items="@ViewBag.Categorias" class="form-control">
+                                                <option selected disabled>---- Selecione ----</option>
+                                            </select>
+                                            <span asp-validation-for="IdCategoriaPadrao" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="FabricanteId" class="control-label"></label>
+                                            <select asp-for="FabricanteId" asp-items="ViewBag.Fabricantes" class="form-control">
+                                                <option selected disabled>---- Selecione ----</option>
+                                            </select>
+                                            <span asp-validation-for="FabricanteId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="Largura" class="control-label"></label>
+                                            <input asp-for="Largura" class="form-control" />
+                                            <span asp-validation-for="Largura" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="EAN13" class="control-label"></label>
+                                            <input asp-for="EAN13" class="form-control" />
+                                            <span asp-validation-for="EAN13" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="Quantidade" class="control-label"></label>
+                                            <input asp-for="Quantidade" class="form-control" />
+                                            <span asp-validation-for="Quantidade" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="QuantidadeMinima" class="control-label"></label>
+                                            <input asp-for="QuantidadeMinima" class="form-control" />
+                                            <span asp-validation-for="QuantidadeMinima" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="Condicao" class="control-label"></label>
+                                            <select asp-for="Condicao" class="form-control">
+                                                <option>Selecione</option>
+                                                @foreach (var item in SCommerce.Web.Utils.GetEnum.SituacaoProduto())
+                                                {
+                                                    <option value="@item.Valor">@item.Exibir</option>
+                                                }
+                                            </select>
+                                            <span asp-validation-for="Condicao" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label asp-for="DescricaoCurta" class="control-label"></label>
+                                            <input asp-for="DescricaoCurta" class="form-control" />
+                                            <span asp-validation-for="DescricaoCurta" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input asp-for="Disponivel" /> @Html.DisplayNameFor(model => model.Disponivel)
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input asp-for="SomenteOnline" /> @Html.DisplayNameFor(model => model.SomenteOnline)
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input asp-for="ForaDeEstoque" /> @Html.DisplayNameFor(model => model.ForaDeEstoque)
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input asp-for="Ativo" /> @Html.DisplayNameFor(model => model.Ativo)
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input asp-for="Customizavel" /> @Html.DisplayNameFor(model => model.Customizavel)
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input asp-for="ExibirPreco" /> @Html.DisplayNameFor(model => model.ExibirPreco)
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input asp-for="ProdutoDigital" /> @Html.DisplayNameFor(model => model.ProdutoDigital)
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab_info_custo">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="Preco" class="control-label"></label>
+                                            <input asp-for="Preco" class="form-control" />
+                                            <span asp-validation-for="Preco" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="PrecoAtacado" class="control-label"></label>
+                                            <input asp-for="PrecoAtacado" class="form-control" />
+                                            <span asp-validation-for="PrecoAtacado" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="Unidade" class="control-label"></label>
+                                            <input asp-for="Unidade" class="form-control" />
+                                            <span asp-validation-for="Unidade" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="CustoEnvio" class="control-label"></label>
+                                            <input asp-for="CustoEnvio" class="form-control" />
+                                            <span asp-validation-for="CustoEnvio" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab_atributos">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="Profundidade" class="control-label"></label>
+                                            <input asp-for="Profundidade" class="form-control" />
+                                            <span asp-validation-for="Profundidade" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="Peso" class="control-label"></label>
+                                            <input asp-for="Peso" class="form-control" />
+                                            <span asp-validation-for="Peso" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="Altura" class="control-label"></label>
+                                            <input asp-for="Altura" class="form-control" />
+                                            <span asp-validation-for="Altura" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="box box-default collapsed-box">
+                                            <div class="box-header with-border">
+                                                <h3 class="box-title">Propriedades</h3>
+                                                <div class="box-tools pull-right">
+                                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                                <!-- /.box-tools -->
+                                            </div>
+                                            <!-- /.box-header -->
+                                            <div class="box-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="col-md-8">
+                                                            <div class="form-group">
+                                                                <label asp-for="PropriedadeView" class="control-label"></label>
+                                                                <select asp-for="PropriedadeView" asp-items="ViewBag.Propriedades" class="form-control">
+                                                                    <option selected disabled>---- Selecione ----</option>
+                                                                </select>
+                                                                <span asp-validation-for="PropriedadeView" class="text-danger"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <button type="submit" name="button" value="AdicionarPropriedade" class="btn btn-primary btn-block btn-social btn-inline" style="margin-top: 23px;">
+                                                                    <i class="fa fa-plus"></i> Adicionar
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="box box-primary">
+                                                            <div class="box-header">
+                                                            </div>
+                                                            <div class="box-body">
+                                                                @{
+                                                                    for (int i = 0; i < Model?.ProdutoPropriedadesViewmodel?.Count(); i++)
+                                                                    {
+                                                                        @Html.HiddenFor(model => model.ProdutoPropriedadesViewmodel[i].ID)
+                                                                        @Html.HiddenFor(model => model.ProdutoPropriedadesViewmodel[i].Produto.ID)
+                                                                        @Html.HiddenFor(model => model.ProdutoPropriedadesViewmodel[i].Propriedade.ID)
+                                                                        @Html.HiddenFor(model => model.ProdutoPropriedadesViewmodel[i].Propriedade.Nome)
+                                                                        @Html.HiddenFor(model => model.ProdutoPropriedadesViewmodel[i].Propriedade.IdPai)
+                                                                        @Html.HiddenFor(model => model.ProdutoPropriedadesViewmodel[i].Propriedade.Customizavel)
+                                                                        @Html.HiddenFor(model => model.ProdutoPropriedadesViewmodel[i].Propriedade.Descricao)
+                                                                        @Html.HiddenFor(model => model.ProdutoPropriedadesViewmodel[i].Propriedade.ProdutoPropriedades)
+                                                                        @Html.HiddenFor(model => model.ProdutoPropriedadesViewmodel[i].Propriedade.PropriedadeValors)
+                                                                        @Html.HiddenFor(model => model.ProdutoPropriedadesViewmodel[i].Propriedade.ValorUnico)
+                                                                        <ul class="todo-list">
+                                                                            <li>
+                                                                                @*<input hidden name="@Model.ProdutoPropriedades[i]" value="@Model.ProdutoPropriedades[i]" />*@
+                                                                                <span class="text">@Model.ProdutoPropriedadesViewmodel[i]?.Propriedade?.Nome</span>
+                                                                                <div class="tools">
+                                                                                    <button type="submit" name="button" value="Excluir_@Model.ProdutoPropriedadesViewmodel[i]?.Propriedade?.ID" style="background-color: #f0f8ff00;">
+                                                                                        <i class="fa fa-trash-o"></i>
+                                                                                    </button>
+                                                                                </div>
+                                                                            </li>
+                                                                        </ul>
+                                                                    }
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /.box-body -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab_descricao">
+                                <div class="box">
+                                    <div class="box-header">
+                                        <h4>Descrição do Produto</h4>
+                                    </div>
+                                    <div class="box-body">
+                                        <textarea asp-for="Referencia"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab_imagens">
+                                <div class="row">
+                                    <div class="box">
+                                        <div class="box-header">
+                                            <h4>Adicionar Imagens</h4>
+                                        </div>
+                                        <div class="box-body" id="dropZone">
+                                            <div class="form-group">
+                                                <input asp-for="arquivosImagens" draggable="true" dropzone="#dropZone" type="file" multiple />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="box box-default collapsed-box">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">Imagens</h3>
+                                            <div class="box-tools pull-right">
+                                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </div>
+                                            <!-- /.box-tools -->
+                                        </div>
+                                        <!-- /.box-header -->
+                                        <div class="box-body">
+                                            @{
+                                                if (Model.imagensProduto != null)
+                                                {
+
+                                                    foreach (var item in Model.imagensProduto)
+                                                    {
+                                                        var base64 = Convert.ToBase64String(item.Arquivo);
+                                                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                                        <div class="col-lg-3 col-md-4 col-xs-6">
+                                                            <div class="col-md-10">
+                                                                <img class="img-fluid img-thumbnail" src="@imgSrc" alt="">
+                                                            </div>
+
+                                                            <div class="col-md-2">
+                                                                <div>
+                                                                    <button type="button" name="button" data-toggle="modal" data-target="#modal-default_@item.ID" value="" style="background-color: #f0f8ff00;margin-left: -26px;" class="btn-excluir-imagem">
+                                                                        <i class="fa fa-arrows"></i>
+                                                                    </button>
+                                                                    <div class="modal fade" id="modal-default_@item.ID">
+                                                                        <div class="modal-dialog">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                    <h4 class="modal-title">Imagem</h4>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12">
+                                                                                            <img class="img-fluid img-thumbnail" src="@imgSrc" alt="">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- /.modal-content -->
+                                                                        </div>
+                                                                        <!-- /.modal-dialog -->
+                                                                    </div>
+                                                                    <!-- /.modal -->
+                                                                </div>
+                                                                <div>
+                                                                    <button type="submit" name="button" value="ExcluirImagem_@item.ID" style="background-color: #f0f8ff00;margin-left: -26px;" class="btn-excluir-imagem">
+                                                                        <i class="fa fa-trash-o"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                }
+
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <button type="submit" name="button" value="Salvar" class="btn btn-success btn-block btn-social">
+                                        <i class="fa fa-save"></i> Salvar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<!-- jQuery 3 -->
+<script src="~/dashboard_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="~/dashboard_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="~/summernote-0.8.9-dist/dist/summernote.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#Referencia').summernote({
+            height: 300,                 // set editor height
+            minHeight: null,             // set minimum height of editor
+            maxHeight: null,             // set maximum height of editor
+            focus: true
+        });
+    });
+
+</script>
+

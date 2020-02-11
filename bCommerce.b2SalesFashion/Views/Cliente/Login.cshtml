@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_LayoutBSaleFashion.cshtml";
+}
+
+
+<form asp-controller="Cliente" asp-action="Login" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    @if (ViewBag.redirectCarrinho == true)
+    {
+        <input hidden type="checkbox" name="redirectCarrinho" id="redirectCarrinho" checked value="true" />
+    }
+    else
+    {
+        <input hidden type="checkbox" name="redirectCarrinho" id="redirectCarrinho" value="false" />
+    }
+    <div class="card card-padrao-b2-sales">
+        <div class="card-header"><h3>Entrar na sua conta</h3></div>
+        <div class="card-body">
+            <div class=" col-md-12">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="usuario" class="control-label">E-mail</label>
+                        <input name="usuario" class="form-control" />
+                        <span for="usuario" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="senha" class="control-label">Senha</label>
+                        <input name="senha" type="password" class="form-control" />
+                        <span for="senha" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <button type="submit" class="btn btn-success btn-block btn-social">
+                        <i class="fa fa-save"></i> Entrar
+                    </button>
+                </div>
+                <div class="form-group col-md-2">
+                    <button type="submit" value="recuperarConta" class="btn btn-danger btn-block btn-social">
+                        <i class="fa fa-save"></i> Recuperar Conta
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>

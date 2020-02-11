@@ -1,0 +1,923 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model SCommerce.Web.Areas.Admin.ViewModels.LojaViewModel
+
+@{
+    ViewData["Title"] = "Alterar Informações da Loja";
+    Layout = "~/Views/Shared/_AdminDashboard.cshtml";
+}
+
+
+<!-- Tell the browser to be responsive to screen width -->
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<!-- Bootstrap 3.3.7 -->
+@*<link rel="stylesheet" href="~/dashboard_components/bootstrap/dist/css/bootstrap.min.css">*@
+<!-- iCheck for checkboxes and radio inputs -->
+<link rel="stylesheet" href="~/dashboard_components/plugins/iCheck/all.css">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="~/dashboard_components/font-awesome/css/font-awesome.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet" href="~/dashboard_components/Ionicons/css/ionicons.min.css">
+<!-- Theme style -->
+@*<link rel="stylesheet" href="~/dashboard_components/dist/css/AdminLTE.min.css">*@
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Editar
+            <small>@Model?.Nome</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a asp-action="Index"><i class="fa fa-home"></i>Dashboard</a></li>
+            <li class="active">Lojas</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="box b-commerce-box">
+            <div class="box-header">
+                <h2>Alterar Informações da Loja</h2>
+            </div>
+            <div class="box-body">
+                <form asp-controller="Lojas" asp-action="Edit" enctype="multipart/form-data" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input hidden asp-for="ID" />
+                    <input hidden asp-for="Cadatro" />
+                    <input hidden asp-for="CMSLojaViewModel"/>
+                    <input hidden asp-for="CMSLojaViewModel.ID"/>
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#tab_info_basico" data-toggle="tab">Básico</a></li>
+                            @*<li><a href="#tab_imagens" data-toggle="tab">Imagens</a></li>*@
+                            <li><a href="#tab_rede_social" data-toggle="tab">Rede Social</a></li>
+                            <li><a href="#tab_contato" data-toggle="tab">Contato</a></li>
+                            <li><a href="#tab_logo" data-toggle="tab">Logo</a></li>
+                            <li><a href="#tab_icone" data-toggle="tab">Ícone</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab_info_basico">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="LojaMatriz" class="control-label"></label>
+                                            <select asp-for="LojaMatriz" asp-items="@ViewBag.Lojas" class="form-control">
+                                                <option selected disabled>---- Selecione ----</option>
+                                            </select>
+                                            <span asp-validation-for="LojaMatriz" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="Nome" class="control-label"></label>
+                                            <input asp-for="Nome" class="form-control" />
+                                            <span asp-validation-for="Nome" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="RazaoSocial" class="control-label"></label>
+                                            <input asp-for="RazaoSocial" class="form-control" />
+                                            <span asp-validation-for="RazaoSocial" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="CNPJ" class="control-label"></label>
+                                            <input asp-for="CNPJ" class="form-control" />
+                                            <span asp-validation-for="CNPJ" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="InscricaoEstadual" class="control-label"></label>
+                                            <input asp-for="InscricaoEstadual" class="form-control" />
+                                            <span asp-validation-for="InscricaoEstadual" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input asp-for="Matriz" /> @Html.DisplayNameFor(model => model.Matriz)
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input asp-for="Ativa" /> @Html.DisplayNameFor(model => model.Ativa)
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div clas="row">
+                                    <div class="form-group col-md-2">
+                                        <button type="submit" name="submit" class="btn btn-success btn-block btn-social">
+                                            <i class="fa fa-save"></i> Salvar
+                                        </button>
+                                    </div>
+                                </div>
+                                <br />
+                                <br />
+                                <br />
+                            </div>
+                            <div class="tab-pane" id="tab_imagens">
+                            </div>
+                            <div class="tab-pane" id="tab_rede_social">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="CMSRedeSocialViewModel.Nome" class="control-label"></label>
+                                            <input asp-for="CMSRedeSocialViewModel.Nome" class="form-control" />
+                                            <span asp-validation-for="CMSRedeSocialViewModel.Nome" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label asp-for="CMSRedeSocialViewModel.Url" class="control-label"></label>
+                                            <input asp-for="CMSRedeSocialViewModel.Url" class="form-control" />
+                                            <span asp-validation-for="CMSRedeSocialViewModel.Url" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="box-header">
+                                        <h4>Adicionar Ícone</h4>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="col-md-8 form-group">
+                                            <input type="file" asp-for="CMSRedeSocialViewModel.ArquivoIcone" />
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <button type="submit" name="submit" value="AdiconarRedeSocial" class="btn btn-info btn-block btn-social">
+                                                <i class="fa fa-plus"></i> Adicionar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <table id="table-redesocial" class="table table-bordered table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    @Html.DisplayNameFor(x => x.CMSRedeSocialViewModel.Nome)
+                                                </th>
+                                                <td>
+                                                    @Html.DisplayNameFor(x => x.CMSRedeSocialViewModel.Icone)
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model.CMSRedeSocials != null)
+                                            {
+                                                foreach (var item in Model.CMSRedeSocials)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @Html.DisplayFor(x => item.Nome)
+                                                        </td>
+                                                        <td>
+                                                            @{
+                                                                var base64 = Convert.ToBase64String(item.Icone);
+                                                                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                                                <img class="img-fluid img-thumbnail" src="@imgSrc" alt="" width="50" height="50">
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            <button type="submit" name="submit" value="ExcluirRedeSocial_@item.ID" style="background-color: #f0f8ff00;">
+                                                                <i class="fa fa-trash-o"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>
+                                                    @Html.DisplayNameFor(x => x.CMSRedeSocialViewModel.Nome)
+                                                </th>
+                                                <td>
+                                                    @Html.DisplayNameFor(x => x.CMSRedeSocialViewModel.Icone)
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab_contato">
+                                <!-- CMS Telefones -->
+                                <div class="box box-default collapsed-box">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Telefones</h3>
+                                        <div class="box-tools pull-right">
+                                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <!-- /.box-tools -->
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label asp-for="ContatoLojaViewModel.ContatoLojaTelefone.ContatoTelefone.CodigoNacional" class="control-label"></label>
+                                                    <input asp-for="ContatoLojaViewModel.ContatoLojaTelefone.ContatoTelefone.CodigoNacional" class="form-control" />
+                                                    <span asp-validation-for="ContatoLojaViewModel.ContatoLojaTelefone.ContatoTelefone.CodigoNacional" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label asp-for="ContatoLojaViewModel.ContatoLojaTelefone.ContatoTelefone.CodigoLocal" class="control-label"></label>
+                                                    <input asp-for="ContatoLojaViewModel.ContatoLojaTelefone.ContatoTelefone.CodigoLocal" class="form-control" />
+                                                    <span asp-validation-for="ContatoLojaViewModel.ContatoLojaTelefone.ContatoTelefone.CodigoLocal" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label asp-for="ContatoLojaViewModel.ContatoLojaTelefone.ContatoTelefone.Numero" class="control-label"></label>
+                                                    <input asp-for="ContatoLojaViewModel.ContatoLojaTelefone.ContatoTelefone.Numero" class="form-control" />
+                                                    <span asp-validation-for="ContatoLojaViewModel.ContatoLojaTelefone.ContatoTelefone.Numero" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label asp-for="ContatoLojaViewModel.ContatoLojaTelefone.ContatoTelefone.Operadora" class="control-label"></label>
+                                                    <input asp-for="ContatoLojaViewModel.ContatoLojaTelefone.ContatoTelefone.Operadora" class="form-control" />
+                                                    <span asp-validation-for="ContatoLojaViewModel.ContatoLojaTelefone.ContatoTelefone.Operadora" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label asp-for="ContatoLojaViewModel.ContatoLojaTelefone.ContatoTelefone.Descricao" class="control-label"></label>
+                                                    <input asp-for="ContatoLojaViewModel.ContatoLojaTelefone.ContatoTelefone.Descricao" class="form-control" />
+                                                    <span asp-validation-for="ContatoLojaViewModel.ContatoLojaTelefone.ContatoTelefone.Descricao" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label asp-for="ContatoLojaViewModel.ContatoLojaTelefone.ContatoTelefone.TipoContato" class="control-label"></label>
+                                                    <select asp-for="ContatoLojaViewModel.ContatoLojaTelefone.ContatoTelefone.TipoContato" asp-items="@ViewBag.TipoContato" class="form-control">
+                                                        <option disabled selected>---- Selecione ----</option>
+                                                    </select>
+                                                    <span asp-validation-for="ContatoLojaViewModel.ContatoLojaTelefone.ContatoTelefone.TipoContato" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="row">
+                                            <div class="form-group col-md-2">
+                                                <button type="submit" name="submit" value="AdiconarTelefone" class="btn btn-info btn-block btn-social">
+                                                    <i class="fa fa-plus"></i> Adicionar
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <table id="tb-contato-loja-telefones" class="table table-bordered table-striped table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                @Html.DisplayNameFor(x => x.ContatoLojaViewModel.ContatoLojaTelefone.ContatoTelefone.Descricao)
+                                                            </th>
+                                                            <td>
+                                                                @Html.DisplayNameFor(x => x.ContatoLojaViewModel.ContatoLojaTelefone.ContatoTelefone.CodigoNacional)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayNameFor(x => x.ContatoLojaViewModel.ContatoLojaTelefone.ContatoTelefone.CodigoLocal)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayNameFor(x => x.ContatoLojaViewModel.ContatoLojaTelefone.ContatoTelefone.Numero)
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @if (Model.ContatoLoja != null)
+                                                        {
+                                                            @if (Model.ContatoLoja.ContatoLojaTelefones != null)
+                                                            {
+                                                                foreach (var item2 in Model.ContatoLoja.ContatoLojaTelefones)
+                                                                {
+                                                                    <tr>
+                                                                        <td>
+                                                                            @Html.DisplayFor(itemModel => item2.ContatoTelefone.Descricao)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(itemModel => item2.ContatoTelefone.CodigoNacional)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(itemModel => item2.ContatoTelefone.CodigoLocal)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(itemModel => item2.ContatoTelefone.Numero)
+                                                                        </td>
+                                                                        <td>
+                                                                            <button type="submit" name="submit" value="ExcluirContatoTelefone_@item2.ID" style="background-color: #f0f8ff00;">
+                                                                                <i class="fa fa-trash-o"></i>
+                                                                            </button>
+                                                                        </td>
+                                                                    </tr>
+                                                                }
+                                                            }
+
+                                                        }
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th>
+                                                                @Html.DisplayNameFor(x => x.ContatoLojaViewModel.ContatoLojaTelefone.ContatoTelefone.Descricao)
+                                                            </th>
+                                                            <td>
+                                                                @Html.DisplayNameFor(x => x.ContatoLojaViewModel.ContatoLojaTelefone.ContatoTelefone.CodigoNacional)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayNameFor(x => x.ContatoLojaViewModel.ContatoLojaTelefone.ContatoTelefone.CodigoLocal)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayNameFor(x => x.ContatoLojaViewModel.ContatoLojaTelefone.ContatoTelefone.Numero)
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
+                                <!-- CMS E-mail -->
+                                <div class="">
+                                    <div class="box box-default collapsed-box">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">E-mail</h3>
+                                            <div class="box-tools pull-right">
+                                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </div>
+                                            <!-- /.box-tools -->
+                                        </div>
+                                        <!-- /.box-header -->
+                                        <div class="box-body">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label asp-for="ContatoLojaViewModel.ContatoLojaEmail.ContatoEmail.NomeContato" class="control-label"></label>
+                                                        <input asp-for="ContatoLojaViewModel.ContatoLojaEmail.ContatoEmail.NomeContato" class="form-control" />
+                                                        <span asp-validation-for="ContatoLojaViewModel.ContatoLojaEmail.ContatoEmail.NomeContato" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="form-group">
+                                                        <label asp-for="ContatoLojaViewModel.ContatoLojaEmail.ContatoEmail.Email" class="control-label"></label>
+                                                        <input asp-for="ContatoLojaViewModel.ContatoLojaEmail.ContatoEmail.Email" class="form-control" />
+                                                        <span asp-validation-for="ContatoLojaViewModel.ContatoLojaEmail.ContatoEmail.Email" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-2">
+                                                    <button type="submit" name="submit" value="AdicionarEmail" class="btn btn-info btn-block btn-social">
+                                                        <i class="fa fa-plus"></i> Adicionar
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <hr />
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <table id="tb-contato-loja-enderecos" class="table table-bordered table-striped table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    @Html.DisplayNameFor(x => x.ContatoLojaViewModel.ContatoLojaEmail.ContatoEmail.NomeContato)
+                                                                </th>
+                                                                <td>
+                                                                    @Html.DisplayNameFor(x => x.ContatoLojaViewModel.ContatoLojaEmail.ContatoEmail.Email)
+                                                                </td>
+                                                                <td></td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @if (Model.ContatoLoja != null)
+                                                            {
+                                                                @if (Model.ContatoLoja.ContatoLojaEmails != null)
+                                                                {
+                                                                    foreach (var item2 in Model.ContatoLoja.ContatoLojaEmails)
+                                                                    {
+                                                                        <tr>
+                                                                            <td>
+                                                                                @Html.DisplayFor(itemModel => item2.ContatoEmail.NomeContato)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(itemModel => item2.ContatoEmail.Email)
+                                                                            </td>
+                                                                            <td>
+                                                                                <button type="submit" name="submit" value="ExcluirContatoEmail_@item2.ID" style="background-color: #f0f8ff00;">
+                                                                                    <i class="fa fa-trash-o"></i>
+                                                                                </button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                }
+
+                                                            }
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th>
+                                                                    @Html.DisplayNameFor(x => x.ContatoLojaViewModel.ContatoLojaEmail.ContatoEmail.NomeContato)
+                                                                </th>
+                                                                <td>
+                                                                    @Html.DisplayNameFor(x => x.ContatoLojaViewModel.ContatoLojaEmail.ContatoEmail.Email)
+                                                                </td>
+                                                                <td></td>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!-- /.box-body -->
+                                    </div>
+                                </div>
+                                <!-- CMS Endereços -->
+                                <div class="">
+                                    <div class="box box-default collapsed-box">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">Endereços</h3>
+                                            <div class="box-tools pull-right">
+                                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </div>
+                                            <!-- /.box-tools -->
+                                        </div>
+                                        <!-- /.box-header -->
+                                        <div class="box-body">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label asp-for="ContatoLojaViewModel.ContatoLojaEndereco.Endereco.Logradouro" class="control-label"></label>
+                                                        <input asp-for="ContatoLojaViewModel.ContatoLojaEndereco.Endereco.Logradouro" class="form-control" />
+                                                        <span asp-validation-for="ContatoLojaViewModel.ContatoLojaEndereco.Endereco.Logradouro" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label asp-for="ContatoLojaViewModel.ContatoLojaEndereco.Endereco.Numero" class="control-label"></label>
+                                                        <input asp-for="ContatoLojaViewModel.ContatoLojaEndereco.Endereco.Numero" class="form-control" />
+                                                        <span asp-validation-for="ContatoLojaViewModel.ContatoLojaEndereco.Endereco.Numero" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label asp-for="ContatoLojaViewModel.ContatoLojaEndereco.Endereco.Aliase" class="control-label"></label>
+                                                        <input asp-for="ContatoLojaViewModel.ContatoLojaEndereco.Endereco.Aliase" class="form-control" />
+                                                        <span asp-validation-for="ContatoLojaViewModel.ContatoLojaEndereco.Endereco.Aliase" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label asp-for="ContatoLojaViewModel.ContatoLojaEndereco.Endereco.idPais" class="control-label"></label>
+                                                        <select asp-for="ContatoLojaViewModel.ContatoLojaEndereco.Endereco.idPais" asp-items="@ViewBag.Paises" class="form-control">
+                                                            <option disabled selected>---- Selecione ----</option>
+                                                        </select>
+                                                        <span asp-validation-for="ContatoLojaViewModel.ContatoLojaEndereco.Endereco.idPais" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label asp-for="ContatoLojaViewModel.ContatoLojaEndereco.Endereco.idProvincia" class="control-label"></label>
+                                                        <select asp-for="ContatoLojaViewModel.ContatoLojaEndereco.Endereco.idProvincia" class="form-control">
+                                                            <option disabled selected>---- Selecione ----</option>
+                                                        </select>
+                                                        <span asp-validation-for="ContatoLojaViewModel.ContatoLojaEndereco.Endereco.idProvincia" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label asp-for="ContatoLojaViewModel.ContatoLojaEndereco.Endereco.idCidade" class="control-label"></label>
+                                                        <select asp-for="ContatoLojaViewModel.ContatoLojaEndereco.Endereco.idCidade" class="form-control">
+                                                            <option disabled selected>---- Selecione ----</option>
+                                                        </select>
+                                                        <span asp-validation-for="ContatoLojaViewModel.ContatoLojaEndereco.Endereco.idCidade" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label asp-for="ContatoLojaViewModel.ContatoLojaEndereco.Endereco.CodigoPostal" class="control-label"></label>
+                                                        <input asp-for="ContatoLojaViewModel.ContatoLojaEndereco.Endereco.CodigoPostal" class="form-control" />
+                                                        <span asp-validation-for="ContatoLojaViewModel.ContatoLojaEndereco.Endereco.CodigoPostal" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label asp-for="ContatoLojaViewModel.ContatoLojaEndereco.Endereco.Complemento" class="control-label"></label>
+                                                        <input asp-for="ContatoLojaViewModel.ContatoLojaEndereco.Endereco.Complemento" class="form-control" />
+                                                        <span asp-validation-for="ContatoLojaViewModel.ContatoLojaEndereco.Endereco.Complemento" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label asp-for="ContatoLojaViewModel.NomeContato" class="control-label"></label>
+                                                        <input asp-for="ContatoLojaViewModel.NomeContato" class="form-control" />
+                                                        <span asp-validation-for="ContatoLojaViewModel.NomeContato" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-4">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input asp-for="ContatoLojaViewModel.ContatoLojaEndereco.Endereco.Ativo" /> @Html.DisplayNameFor(model => model.ContatoLojaViewModel.ContatoLojaEndereco.Endereco.Ativo)
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr />
+                                            <div class="row">
+                                                <div class="form-group col-md-2">
+                                                    <button type="submit" name="submit" value="AdiconarEndereco" class="btn btn-info btn-block btn-social">
+                                                        <i class="fa fa-plus"></i> Adicionar
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <hr />
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <table id="tb-contato-loja-enderecos" class="table table-bordered table-striped table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    @Html.DisplayNameFor(x => x.ContatoLojaViewModel.ContatoLojaEndereco.Endereco.Cidade.Nome)
+                                                                </th>
+                                                                <td>
+                                                                    @Html.DisplayNameFor(x => x.ContatoLojaViewModel.ContatoLojaEndereco.Endereco.Aliase)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayNameFor(x => x.ContatoLojaViewModel.ContatoLojaEndereco.Endereco.Logradouro)
+                                                                </td>
+                                                                <td></td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @if (Model.ContatoLoja != null)
+                                                            {
+                                                                @if (Model.ContatoLoja.ContatoLojaEnderecos != null)
+                                                                {
+                                                                    foreach (var item2 in Model.ContatoLoja.ContatoLojaEnderecos)
+                                                                    {
+                                                                        <tr>
+                                                                            <td>
+                                                                                @Html.DisplayFor(itemModel => item2.Endereco.Cidade.Nome)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(itemModel => item2.Endereco.Aliase)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(itemModel => item2.Endereco.Logradouro)
+                                                                            </td>
+                                                                            <td>
+                                                                                <button type="submit" name="submit" value="ExcluirContatoEndereco_@item2.ID" style="background-color: #f0f8ff00;">
+                                                                                    <i class="fa fa-trash-o"></i>
+                                                                                </button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                }
+
+                                                            }
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th>
+                                                                    @Html.DisplayNameFor(x => x.ContatoLojaViewModel.ContatoLojaEndereco.Endereco.Cidade)
+                                                                </th>
+                                                                <td>
+                                                                    @Html.DisplayNameFor(x => x.ContatoLojaViewModel.ContatoLojaEndereco.Endereco.Aliase)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayNameFor(x => x.ContatoLojaViewModel.ContatoLojaEndereco.Endereco.Logradouro)
+                                                                </td>
+                                                                <td></td>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.box-body -->
+                                    </div>
+                                </div>
+                                <!--CMS WhatsApp-->
+                                <div class="">
+                                    <div class="box box-default collapsed-box">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">WhatsApp</h3>
+                                            <div class="box-tools pull-right">
+                                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </div>
+                                            <!-- /.box-tools -->
+                                        </div>
+                                        <!-- /.box-header -->
+                                        <div class="box-body">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <input hidden asp-for="CMSWhatsApp.ID" />
+                                                    <div class="form-group">
+                                                        <label asp-for="CMSWhatsApp.ContatoLojaTelefone.ContatoTelefone.CodigoNacional" class="control-label"></label>
+                                                        <input asp-for="CMSWhatsApp.ContatoLojaTelefone.ContatoTelefone.CodigoNacional" class="form-control" />
+                                                        <span asp-validation-for="CMSWhatsApp.ContatoLojaTelefone.ContatoTelefone.CodigoNacional" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label asp-for="CMSWhatsApp.ContatoLojaTelefone.ContatoTelefone.CodigoLocal" class="control-label"></label>
+                                                        <input asp-for="CMSWhatsApp.ContatoLojaTelefone.ContatoTelefone.CodigoLocal" class="form-control" />
+                                                        <span asp-validation-for="CMSWhatsApp.ContatoLojaTelefone.ContatoTelefone.CodigoLocal" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label asp-for="CMSWhatsApp.ContatoLojaTelefone.ContatoTelefone.Numero" class="control-label"></label>
+                                                        <input asp-for="CMSWhatsApp.ContatoLojaTelefone.ContatoTelefone.Numero" class="form-control" />
+                                                        <span asp-validation-for="CMSWhatsApp.ContatoLojaTelefone.ContatoTelefone.Numero" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label asp-for="CMSWhatsApp.Observacao" class="control-label"></label>
+                                                        <input asp-for="CMSWhatsApp.Observacao" class="form-control" />
+                                                        <span asp-validation-for="CMSWhatsApp.Observacao" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label asp-for="CMSWhatsApp.ContatoLojaTelefone.ContatoTelefone.Operadora" class="control-label"></label>
+                                                        <input asp-for="CMSWhatsApp.ContatoLojaTelefone.ContatoTelefone.Operadora" class="form-control" />
+                                                        <span asp-validation-for="CMSWhatsApp.ContatoLojaTelefone.ContatoTelefone.Operadora" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-2">
+                                                    <button type="submit" name="submit" value="AdiconarWhatsApp" class="btn btn-info btn-block btn-social">
+                                                        <i class="fa fa-save"></i> Salvar
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.box-body -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab_logo">
+                                <div class="row">
+                                    @if (Model?.CMSLojaViewModel?.Logo != null)
+                                    {
+                                        var base64_logo1 = Convert.ToBase64String(Model.CMSLojaViewModel.Logo);
+                                        var imgSrc_logo1 = String.Format("data:image/gif;base64,{0}", base64_logo1);
+                                        <div class="col-lg-3 col-md-4 col-xs-6">
+                                            <div class="col-md-10">
+                                                <img class="img-fluid img-thumbnail" src="@imgSrc_logo1" alt="">
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <div>
+                                                    <button type="button" name="button" data-toggle="modal" data-target="#modal-default_logo1" value="" style="background-color: #f0f8ff00;margin-left: -26px;" class="btn-excluir-imagem">
+                                                        <i class="fa fa-arrows"></i>
+                                                    </button>
+                                                    <div class="modal fade" id="modal-default_logo1">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                    <h4 class="modal-title">Logo</h4>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <img class="img-fluid img-thumbnail" src="@imgSrc_logo1" alt="">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div>
+                                                            <!-- /.modal-content -->
+                                                        </div>
+                                                        <!-- /.modal-dialog -->
+                                                    </div>
+                                                    <!-- /.modal -->
+                                                </div>
+                                                <div>
+                                                    <button type="submit" name="submit" value="Excluir_logo1" style="background-color: #f0f8ff00;margin-left: -26px;" class="btn-excluir-imagem">
+                                                        <i class="fa fa-trash-o"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    @if (Model?.CMSLojaViewModel?.Logo2 != null)
+                                    {
+                                        var base64_logo2 = Convert.ToBase64String(Model.CMSLojaViewModel.Logo2);
+                                        var imgSrc_logo2 = String.Format("data:image/gif;base64,{0}", base64_logo2);
+                                        <div class="col-lg-3 col-md-4 col-xs-6">
+                                            <div class="col-md-10">
+                                                <img class="img-fluid img-thumbnail" src="@imgSrc_logo2" alt="">
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <div>
+                                                    <button type="button" name="button" data-toggle="modal" data-target="#modal-default_logo2" value="" style="background-color: #f0f8ff00;margin-left: -26px;" class="btn-excluir-imagem">
+                                                        <i class="fa fa-arrows"></i>
+                                                    </button>
+                                                    <div class="modal fade" id="modal-default_logo2">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                    <h4 class="modal-title">Logo</h4>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <img class="img-fluid img-thumbnail" src="@imgSrc_logo2" alt="">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div>
+                                                            <!-- /.modal-content -->
+                                                        </div>
+                                                        <!-- /.modal-dialog -->
+                                                    </div>
+                                                    <!-- /.modal -->
+                                                </div>
+                                                <div>
+                                                    <button type="submit" name="submit" value="Excluir_logo2" style="background-color: #f0f8ff00;margin-left: -26px;" class="btn-excluir-imagem">
+                                                        <i class="fa fa-trash-o"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 box-header">
+                                        <h4>Adicionar Logo</h4>
+                                        <p>Selecione até 2 imagens.</p>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="col-md-8 form-group">
+                                            <input type="file" asp-for="CMSLojaViewModel.ArquivoLog_1" />
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <button type="submit" name="submit" value="AdiconarLogo" class="btn btn-info btn-block btn-social">
+                                                <i class="fa fa-plus"></i> Adicionar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab_icone">
+                                @if (Model?.CMSLojaViewModel?.Icone != null)
+                                {
+                                    var base64_icone = Convert.ToBase64String(Model.CMSLojaViewModel.Icone);
+                                    var imgSrc_icone = String.Format("data:image/gif;base64,{0}", base64_icone);
+                                    <div class="col-lg-3 col-md-4 col-xs-6">
+                                        <div class="col-md-10">
+                                            <img class="img-fluid img-thumbnail" src="@imgSrc_icone" alt="">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div>
+                                                <button type="button" name="button" data-toggle="modal" data-target="#modal-default_icone" value="" style="background-color: #f0f8ff00;margin-left: -26px;" class="btn-excluir-imagem">
+                                                    <i class="fa fa-arrows"></i>
+                                                </button>
+                                                <div class="modal fade" id="modal-default_icone">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                                <h4 class="modal-title">Logo</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <img class="img-fluid img-thumbnail" src="@imgSrc_icone" alt="">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                                            </div>
+                                                        </div>
+                                                        <!-- /.modal-content -->
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>
+                                                <!-- /.modal -->
+                                            </div>
+                                            <div>
+                                                <button type="submit" name="submit" value="Excluir_icone" style="background-color: #f0f8ff00;margin-left: -26px;" class="btn-excluir-imagem">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                <div class="row">
+                                    <div class="col-md-12 box-header">
+                                        <h4>Adicionar Ícone</h4>
+                                        <p>Selecione 1 imagem.</p>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="col-md-8 form-group">
+                                            <input type="file" asp-for="CMSLojaViewModel.ArquivoIcone" />
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <button type="submit" name="submit" value="AdiconarIcone" class="btn btn-info btn-block btn-social">
+                                                <i class="fa fa-plus"></i> Adicionar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<!-- jQuery 3 -->
+<script src="~/dashboard_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="~/dashboard_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- iCheck 1.0.1 -->
+<script src="~/dashboard_components/plugins/iCheck/icheck.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="~/dashboard_components/dist/js/demo.js"></script>
+
+<script src="~/js/localizacao.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ($("#ContatoLojaViewModel_ContatoLojaEndereco_Endereco_idPais").val()) {
+            carregarProvincias("ContatoLojaViewModel_ContatoLojaEndereco_Endereco_idProvincia", idPais);
+        }
+        if ($("#ContatoLojaViewModel_ContatoLojaEndereco_Endereco_idProvincia").val()) {
+            carregarCidades("ContatoLojaViewModel_ContatoLojaEndereco_Endereco_idCidade", idProvincia);
+        }
+
+        $("#ContatoLojaViewModel_ContatoLojaEndereco_Endereco_idPais").change(function () {
+            var idPais = $("#ContatoLojaViewModel_ContatoLojaEndereco_Endereco_idPais").val();
+            carregarProvincias("ContatoLojaViewModel_ContatoLojaEndereco_Endereco_idProvincia", idPais);
+        });
+
+        $("#ContatoLojaViewModel_ContatoLojaEndereco_Endereco_idProvincia").change(function () {
+            var idProvincia = $("#ContatoLojaViewModel_ContatoLojaEndereco_Endereco_idProvincia").val();
+            carregarCidades("ContatoLojaViewModel_ContatoLojaEndereco_Endereco_idCidade", idProvincia);
+        });
+    });
+</script>
+
+
+

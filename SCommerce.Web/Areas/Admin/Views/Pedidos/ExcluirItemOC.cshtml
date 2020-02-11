@@ -1,0 +1,92 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model SCommerce.Web.Areas.Admin.ViewModels.OCDetalhesViewModel
+
+
+@{
+    ViewData["Title"] = "Excluir Item OC";
+    Layout = "~/Views/Shared/_AdminDashboard.cshtml";
+}
+
+
+<!-- Tell the browser to be responsive to screen width -->
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<!-- Bootstrap 3.3.7 -->
+@*<link rel="stylesheet" href="~/dashboard_components/bootstrap/dist/css/bootstrap.min.css">*@
+<!-- iCheck for checkboxes and radio inputs -->
+<link rel="stylesheet" href="~/dashboard_components/plugins/iCheck/all.css">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="~/dashboard_components/font-awesome/css/font-awesome.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet" href="~/dashboard_components/Ionicons/css/ionicons.min.css">
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Excluir Item
+            @*<small>Cadastro</small>*@
+        </h1>
+        <ol class="breadcrumb">
+            <li><a asp-action="Index"><i class="fa fa-home"></i>Dashboard</a></li>
+            <li><a asp-action="Pedidos"><i class="fa fa-home"></i>Pedidos</a></li>
+            <li class="active">Excluir Item</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="box b-commerce-box">
+            <div class="box-header">
+                <h2 style="color: red"><b>O registro abaixo será removido, continuar?</b></h2>
+            </div>
+            <div class="box-body">
+                <form asp-area="Admin" asp-controller="Pedidos" asp-action="ExcluirItemOC" method="post" role="form">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input hidden asp-for="ID" />
+                    <input hidden asp-for="IdOC" />
+                    <div class="row">
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.OC.Referencia)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.OC.Referencia)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Produto.NomeExibicao)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Produto.NomeExibicao)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Produto.EAN13)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Produto.EAN13)
+                            </dd>
+                        </dl>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-danger btn-block btn-social">
+                                    <i class="fa fa-trash-o white"></i> Excluir
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<!-- jQuery 3 -->
+<script src="~/dashboard_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="~/dashboard_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- iCheck 1.0.1 -->
+<script src="~/dashboard_components/plugins/iCheck/icheck.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="~/dashboard_components/dist/js/demo.js"></script>
+

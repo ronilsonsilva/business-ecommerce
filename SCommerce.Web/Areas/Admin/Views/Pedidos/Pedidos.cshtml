@@ -1,0 +1,188 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model SCommerce.Web.Areas.Admin.ViewModels.PedidosViewModel
+
+@{
+    ViewData["Title"] = "Pedidos";
+    Layout = "~/Views/Shared/_AdminDashboard.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Pedidos
+            <small></small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a asp-action="Index"><i class="fa fa-home"></i>Dashboard</a></li>
+            <li class="active">Pedidos</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>@Model?.OCs.Where(x => x.OCStatus.Faturado == true).Count()</h3>
+                        <p>Pedidos Faturados</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion-android-settings"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <h3>@Model.OCs.Count()</h3>
+                        <p>Total de Pedidos</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion-android-settings"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-green">
+                    <div class="inner">
+                        <h3>@Model.OCs.Where(x => x.OCStatus.Entregado == true).Count()</h3>
+                        <p>Pedidos Finalizado</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion-android-settings"></i>
+                    </div>
+                    @*<a href="#" class="small-box-footer">Listar<i class="fa fa-arrow-circle-right"></i></a>*@
+                </div>
+            </div>
+
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        <h3>@Model.OCs.Where(x => x.OCMensagens.Where(y => y.Lida != true).Count() > 0).Count()</h3>
+                        <p>Pedidos Com Mensagens Não Lida</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion-android-settings"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- ./col -->
+        </div>
+
+        <div class="">
+            <div class="box b-commerce-box">
+                <div class="box-header">
+                    <div class="row">
+                    </div>
+                </div>
+                <div class="box-body">
+                    <table id="table-propriedades" class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayName("Referencia")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Cliente")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Atualizado")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Qtd. Produtos")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Valor Total")
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.OCs)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Referencia)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Cliente.Nome)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Atualizado)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.OCDetalhes.Count)
+                                    </td>
+                                    <td>
+                                        @{
+                                            Decimal total = 0;
+                                            foreach (var item2 in item.OCDetalhes)
+                                            {
+                                                total += Decimal.Parse(item2.Quantidade.ToString()) * item2.Produto.Preco;
+                                            }
+                                            <p> R$ @total</p>
+                                        }
+
+                                    </td>
+                                    <td>
+                                        <a href='@Url.Action("OCDetalhes", "Pedidos", new { idOC = item.ID  })' class="mall-box-footers tooltipped" data-position="bottom" data-tooltip="Valores da Propriedade" title="Detalhes"><i class="fa fa-list"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>
+                                    @Html.DisplayName("Numero OC")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Cliente")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Atualizado")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Qtd. Produtos")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Valor Total")
+                                </th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+
+<!-- jQuery 3 -->
+<script src="~/dashboard_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="~/dashboard_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script src="~/dashboard_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/dashboard_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#table-propriedades').DataTable();
+    });
+</script>
+
+
+

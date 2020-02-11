@@ -1,0 +1,178 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model IEnumerable<SCommerce.Web.Areas.Admin.ViewModels.PropriedadeViewModel>
+
+@{
+    ViewData["Title"] = "Dashboard - Propriedades do Produto";
+    Layout = "~/Views/Shared/_AdminDashboard.cshtml";
+}
+
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Propriedades de Produtos
+            <small></small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a asp-action="Index"><i class="fa fa-home"></i>Dashboard</a></li>
+            <li class="active">Propriedades</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>@Model?.Count()</h3>
+                        <p>Total de Propriedades</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion-android-settings"></i>
+                    </div>
+                    <a href='@Url.Action("Create","Propriedade")' class="small-box-footer">Adicionar Nova <i class="fa fa-plus"></i></a>
+
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <h3>@Model.Where(e => e.PropriedadeValors?.Count() > 0).Count()</h3>
+
+                        <p>Propriedades com valores</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion-android-settings"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">Listar <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-green">
+                    <div class="inner">
+                        <h3>@Model.Where(e => e.ProdutoPropriedades?.Count() == 0).Count()</h3>
+                        <p>Propriedades com produtos</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion-android-settings"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">Listar<i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        <h3>@Model.Where(e => e.ProdutoPropriedades?.Count() == 0).Count()</h3>
+                        <p>Propriedade sem produtos</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion-android-settings"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">Listar com Produtos <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+        </div>
+
+        <div class="">
+            <div class="box b-commerce-box">
+                <div class="box-header">
+                    <div class="row">
+                    </div>
+                </div>
+                <div class="box-body">
+                    <table id="table-propriedades" class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Nome)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Descricao)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Customizavel)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ValorUnico)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Nome)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Descricao)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Customizavel)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ValorUnico)
+                                    </td>
+                                    <td>
+                                        <a href='@Url.Action("Valores", "Propriedade", new { idPropriedade = item.ID  })' class="mall-box-footers tooltipped" data-position="bottom" data-tooltip="Valores da Propriedade"><i class="fa fa-sun-o"></i></a>
+                                        <a href='@Url.Action("Edit", "Propriedade", new { idPropriedade = item.ID  })' class="mall-box-footers"><i class="fa fa-edit"></i></a>
+                                        <a href='@Url.Action("Details", "Propriedade", new { idPropriedade = item.ID })' class="mall-box-footers"><i class="fa fa-search"></i></a>
+                                        <a href='@Url.Action("Delete", "Propriedade", new { idPropriedade = item.ID })' class="mall-box-footers"><i class="fa  fa-trash-o"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Nome)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Descricao)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Customizavel)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ValorUnico)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+
+<!-- jQuery 3 -->
+<script src="~/dashboard_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="~/dashboard_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script src="~/dashboard_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/dashboard_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#table-propriedades').DataTable();
+    });
+</script>
+

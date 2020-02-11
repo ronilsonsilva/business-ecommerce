@@ -1,0 +1,518 @@
+﻿
+@{
+    var cmsLoja = bCommerce.b2SalesFashion.Utils.Configurar.GetCMSLoja();
+    var loja = bCommerce.b2SalesFashion.Utils.Configurar.GetLoja();
+
+
+    <!DOCTYPE html>
+    <html class="no-js">
+    @using Newtonsoft.Json;
+    @using Microsoft.AspNetCore.Http;
+    @using Microsoft.AspNetCore.Mvc;
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@loja?.Nome</title>
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Favicon
+        ============================================ -->
+        <link rel="shortcut icon" type="image/x-icon" href="img/favicon.jpg">
+
+        <!-- Fonts
+        ============================================ -->
+        <link href='https://fonts.googleapis.com/css?family=Raleway:400,700,600,500,300,800,900' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,300,300italic,500italic,700' rel='stylesheet' type='text/css'>
+
+        <!-- CSS  -->
+        <!-- Bootstrap CSS
+        ============================================ -->
+        <link rel="stylesheet" href="~/b-sale_ecommerce_fashion/css/bootstrap.min.css">
+
+        <!-- font-awesome.min CSS
+        ============================================ -->
+        <link rel="stylesheet" href="~/b-sale_ecommerce_fashion/css/font-awesome.min.css">
+
+        <!-- Mean Menu CSS
+        ============================================ -->
+        <link rel="stylesheet" href="~/b-sale_ecommerce_fashion/css/meanmenu.min.css">
+
+        <!-- owl.carousel CSS
+        ============================================ -->
+        <link rel="stylesheet" href="~/b-sale_ecommerce_fashion/css/owl.carousel.css">
+
+        <!-- owl.theme CSS
+        ============================================ -->
+        <link rel="stylesheet" href="~/b-sale_ecommerce_fashion/css/owl.theme.css">
+
+        <!-- owl.transitions CSS
+        ============================================ -->
+        <link rel="stylesheet" href="~/b-sale_ecommerce_fashion/css/owl.transitions.css">
+
+        <!-- Price Filter CSS
+        ============================================ -->
+        <link rel="stylesheet" href="~/b-sale_ecommerce_fashion/css/jquery-ui.min.css">
+
+        <!-- nivo-slider css
+        ============================================ -->
+        <link rel="stylesheet" href="~/b-sale_ecommerce_fashion/css/nivo-slider.css">
+
+        <!-- animate CSS
+        ============================================ -->
+        <link rel="stylesheet" href="~/b-sale_ecommerce_fashion/css/animate.css">
+
+        <!-- jquery-ui-slider CSS
+        ============================================ -->
+        <link rel="stylesheet" href="~/b-sale_ecommerce_fashion/css/jquery-ui-slider.css">
+
+        <!-- normalize CSS
+        ============================================ -->
+        <link rel="stylesheet" href="~/b-sale_ecommerce_fashion/css/normalize.css">
+
+        <!-- main CSS
+        ============================================ -->
+        <link rel="stylesheet" href="~/b-sale_ecommerce_fashion/css/main.css">
+
+        <!-- style CSS
+        ============================================ -->
+        <link rel="stylesheet" href="~/b-sale_ecommerce_fashion/style.css">
+
+        <!-- responsive CSS
+        ============================================ -->
+        <link rel="stylesheet" href="~/b-sale_ecommerce_fashion/css/responsive.css">
+        <!-- Font Awesone -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/Loading-indicator/css/jquery.Wload.css">
+
+    </head>
+    <body class="home-one">
+
+        @*<form asp-action="Loja" asp-controller="Home" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+        <div class="header-area">
+            <div class="header-top-bar">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <div class="header-top-left">
+                                @*<div class="header-top-menu">
+                                        <ul class="list-inline">
+                                            <li><img src="~/b-sale_ecommerce_fashion/img/flag.png" alt="flag"></li>
+                                            <li class="dropdown">
+                                                <a href="#" data-toggle="dropdown">English</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#">Spanish</a></li>
+                                                    <li><a href="#">China</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown">
+                                                <a href="#" data-toggle="dropdown">USD</a>
+                                                <ul class="dropdown-menu usd-dropdown">
+                                                    <li><a href="#">USD</a></li>
+                                                    <li><a href="#">GBP</a></li>
+                                                    <li><a href="#">EUR</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>*@
+                                @*<p>Seja Bem Vindo</p>*@
+                            </div>
+                        </div>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                            <div class="header-top-right">
+                                <ul class="list-inline">
+                                    <li id="liNomeCliente" hidden="hidden">Seja Bem Vindo Sr(a) <span id="nomeCliente"></span></li>
+                                    <li id="linkMinhaConta" hidden="hidden"><a asp-controller="Cliente" asp-action="Index"><i class="fa fa-user"></i>Minha Conta</a></li>
+                                    @*<li><a href="#"><i class="fa fa-heart"></i>Favoritos</a></li>*@
+                                    @*<li><a href="checkout.html"><i class="fa fa-check-square-o"></i>Checkout</a></li>*@
+                                    <li id="loginCliente" hidden="hidden"><a asp-controller="Cliente" asp-action="Login"><i class="fa fa-lock"></i>Login</a></li>
+                                    <li id="registrarCliente" hidden="hidden"><a asp-controller="Cliente" asp-action="Registrar"><i class="fa fa-pencil-square-o"></i>Registrar</a></li>
+                                    <li id="sairCliente" hidden="hidden"><a asp-controller="Cliente" asp-action="Sair"><i class="fas fa-sign-out-alt"></i>Sair</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header-bottom">
+                <form asp-action="Loja" asp-controller="Home" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-2 col-xs-12">
+                                <div class="header-logo">
+                                    @{
+                                        if (cmsLoja != null)
+                                        {
+                                            var base64 = Convert.ToBase64String(cmsLoja.Logo);
+                                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                            <a asp-controller="Home" asp-action="Index"><img src='@imgSrc' alt="logo"></a>
+                                        }
+                                        else
+                                        {
+                                            <a asp-controller="Home" asp-action="Index"><img src="~/b-sale_ecommerce_fashion/img/logo.png" alt="logo"></a>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-md-10 col-sm-10 col-xs-12">
+                                <div class="search-chart-list">
+                                    <div class="catagori-menu">
+                                        <ul class="list-inline">
+                                            <li><i class="fa fa-search"></i></li>
+                                            <li>
+                                                <select name="idCategoria" id="selectCategoriaTop">
+                                                    <option value="">Todas Categorias</option>
+                                                    @foreach (var item in bCommerce.b2SalesFashion.Utils.Configurar.GetCategorias())
+                                                    {
+                                                        if (item.Root)
+                                                        {
+                                                            <option value="@item?.ID">@item?.Nome</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="header-search">
+                                        <input type="text" name="palavraChave" id="palavraChaveTop" placeholder="Buscar" />
+                                        <button type="submit" value="buscaProduto"><i class="fa fa-search"></i></button>
+                                    </div>
+                                    <div class="header-chart">
+                                        <ul class="list-inline">
+                                            <li><a href='@Url.Action("Carrinho","Home")'><i class="fa fa-cart-arrow-down"></i></a></li>
+                                            <li class="chart-li">
+                                                <a href='@Url.Action("Carrinho","Home")'>Meu Carrinho</a>
+                                                <ul>
+                                                    <li>
+                                                        <div class="header-chart-dropdown">
+                                                            <div id="itensCarrinho"></div>
+                                                            <div class="chart-checkout">
+                                                                <p>total<span id="subtotalCarrinho"></span></p>
+                                                                <a href='@Url.Action("Carrinho","Home")' class="btn btn-default btn-verificar-carrinho">
+                                                                    Verificar
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li><a href='@Url.Action("Carrinho","Home")'><span id="quantidadeItensCarrinho"></span> items</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+        <!-- HEADER AREA -->
+        <!-- MAIN MENU AREA -->
+        <div class="main-menu-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="main-menu hidden-xs">
+                            <nav>
+                                <ul>
+                                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                                    @foreach (var item in bCommerce.b2SalesFashion.Utils.Configurar.GetCategorias())
+                                    {
+
+                                        if (item.Root)
+                                        {
+                                            var categoriasFilho = bCommerce.b2SalesFashion.Utils.Configurar.GetFilhosDaCategorias(item.ID);
+                                            if (categoriasFilho.Count > 0)
+                                            {
+                                                <li>
+                                                    <a href='@Url.Action("Loja","Home", new { idCategoria = item.ID, palavraChave = "", btnSubmit = "" })'>@item.Nome</a>
+                                                    <ul class="sub-menu">
+                                                        @foreach (var item2 in categoriasFilho)
+                                                        {
+                                                            <li><a href='@Url.Action("Loja","Home", new { idCategoria = item2.ID, palavraChave = "", btnSubmit = "" })'>@item2?.Nome</a></li>
+                                                        }
+                                                    </ul>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li><a href='@Url.Action("Loja","Home", new { idCategoria = item.ID, palavraChave = "", btnSubmit = "" })'>@item?.Nome</a></li>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <li><a href='@Url.Action("Loja","Home", new { idCategoria = item.ID, palavraChave = "", btnSubmit = "" })'>@item?.Nome</a></li>
+                                        }
+                                    }
+                                </ul>
+                            </nav>
+                        </div>
+                        <!-- Mobile MENU AREA -->
+                        <div class="mobile-menu hidden-sm hidden-md hidden-lg">
+                            <nav>
+                                <ul>
+                                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                                    @foreach (var item in bCommerce.b2SalesFashion.Utils.Configurar.GetCategorias())
+                                    {
+
+                                        if (item.Root)
+                                        {
+                                            var categoriasFilho = bCommerce.b2SalesFashion.Utils.Configurar.GetFilhosDaCategorias(item.ID);
+                                            if (categoriasFilho.Count > 0)
+                                            {
+                                                <li>
+                                                    <a href="#">@item.Nome</a>
+                                                    <ul class="sub-menu">
+                                                        @foreach (var item2 in categoriasFilho)
+                                                        {
+                                                            <li><a href='@Url.Action("Loja","Home", new { idCategoria = item2.ID, palavraChave = "", btnSubmit = "" })'>@item2?.Nome</a></li>
+                                                        }
+                                                    </ul>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li><a href='@Url.Action("Loja","Home", new { idCategoria = item.ID, palavraChave = "", btnSubmit = "" })'>@item?.Nome</a></li>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <li><a href='@Url.Action("Loja","Home", new { idCategoria = item.ID, palavraChave = "", btnSubmit = "" })'>@item?.Nome</a></li>
+                                        }
+                                    }
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIM MAIN MENU AREA -->
+
+
+
+        <partial name="_CookieConsentPartial" />
+
+        <div id="Body_Loja" class="container body-content">
+            @RenderBody()
+            <hr />
+
+        </div>
+        <div class="navbar-fixed-bottom floatleft btn-whatsApp" title="Chamar no WhatsApp">
+            @*<a href='https://wa.me/@bCommerce.b2SalesFashion.Utils.Configurar.GetWhatsApp()?Contato20%via20%loja20%virtual'><i class="fab fa-whatsapp"></i></a>*@
+            <a href='https://api.whatsapp.com/send?phone=@bCommerce.b2SalesFashion.Utils.Configurar.GetWhatsApp()&text=Contato,%20via%20Loja%20Virtual:' target="_blank"><i class="fab fa-whatsapp"></i></a>
+        </div>
+
+
+        <!-- Footer AREA -->
+        <div class="footer-area">
+            <div class="footer-top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <div class="footer-info-card">
+                                <div class="footer-logo">
+                                    @{
+                                        if (cmsLoja != null)
+                                        {
+                                            var base64 = Convert.ToBase64String(cmsLoja.Logo2);
+                                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                            <a asp-controller="Home" asp-action="Index"><img src='@imgSrc' alt="logo"></a>
+                                        }
+                                        else
+                                        {
+                                            <a asp-controller="Home" asp-action="Index"><img src="~/b-sale_ecommerce_fashion/img/footer-logo.png" alt="logo"></a>
+                                        }
+                                    }
+                                </div>
+                                <p>@loja?.Nome</p>
+                                <ul class="list-inline">
+                                    @*<li><a href="#"><img src="~/b-sale_ecommerce_fashion/img/visa-card/visa-card-1.png" alt="card" class="img-responsive"></a></li>
+                                        <li><a href="#"><img src="~/b-sale_ecommerce_fashion/img/visa-card/visa-card-2.png" alt="card" class="img-responsive"></a></li>
+                                        <li><a href="#"><img src="~/b-sale_ecommerce_fashion/img/visa-card/visa-card-3.png" alt="card" class="img-responsive"></a></li>
+                                        <li><a href="#"><img src="~/b-sale_ecommerce_fashion/img/visa-card/visa-card-4.png" alt="card" class="img-responsive"></a></li>*@
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="footer-menu-area">
+                                <h2 class="footer-heading">Links</h2>
+                                <div class="footer-menu">
+                                    <ul>
+                                        <li><a asp-controller="Cliente" asp-action="Index"><i class="fa fa-user"></i>Minha Conta</a></li>
+                                        <li><a asp-controller="Home" asp-action="About"><i class="fa fa-info"></i>Sobre Nós</a></li>
+                                        <li><a asp-controller="Home" asp-action="Contact"><i class="fa fa-phone"></i>Contato</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="contact-info-area">
+                                <h2 class="footer-heading">Fale Conosco</h2>
+                                <div class="contact-info">
+                                    @{
+                                        var telefone = bCommerce.b2SalesFashion.Utils.Configurar.GetTelefones();
+                                        @if (telefone != null)
+                                        {
+                                            <div class="contanct-details">
+                                                <div class="info-icon">
+                                                    <i class="fa fa-phone"></i>
+                                                </div>
+                                                <div class="info-content">
+                                                    @foreach (var item in telefone)
+                                                    {
+                                                        <p title="@item.Operadora">+@item.CodigoNacional @item.CodigoLocal @item.Numero</p>
+                                                    }
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                    @{
+                                        var eMail = bCommerce.b2SalesFashion.Utils.Configurar.GetEmails();
+                                        if (eMail != null)
+                                        {
+                                            <div class="contanct-details">
+                                                <div class="info-icon">
+                                                    <i class="fa fa-envelope"></i>
+                                                </div>
+                                                <div class="info-content">
+                                                    @foreach (var item in eMail)
+                                                    {
+                                                        <p title="@item.NomeContato">@item.Email</p>
+                                                    }
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+
+                                    @{
+                                        var endereco = @bCommerce.b2SalesFashion.Utils.Configurar.GetEnderecos().FirstOrDefault();
+                                        if (endereco != null)
+                                        {
+                                            <div class="contanct-details">
+                                                <div class="info-icon">
+                                                    <i class="fa fa-map-marker"></i>
+                                                </div>
+                                                <div class="info-content">
+
+                                                    <p>@endereco?.Logradouro, @endereco?.Aliase, @endereco?.Cidade?.Nome</p>
+                                                    <p><b>CEP:</b>@endereco?.CodigoPostal - @endereco?.Cidade?.Provincia?.Nome - @endereco?.Cidade?.Provincia?.Pais?.Nome</p>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <div class="copyright">
+                                Desenvolvido com a plataforma <a href='http://www.businesscommerce.com.br/' target="_blank"><b>Businnes Commerce</b></a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="footer-social-icon">
+                                <ul class="list-inline">
+                                    @foreach (var item in bCommerce.b2SalesFashion.Utils.Configurar.GetRedeSocials())
+                                    {
+                                        var base64 = Convert.ToBase64String(item.Icone);
+                                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                        <li><a href="@item.Url" title="@item.Nome"><img src="@imgSrc" width="40" height="40" /></a></li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer AREA -->
+        <!-- JS -->
+        <script src="~/b-sale_ecommerce_fashion/js/vendor/modernizr-2.8.3.min.js"></script>
+        <!-- jquery-1.11.3.min js
+        ============================================ -->
+        <script src="~/b-sale_ecommerce_fashion/js/vendor/jquery-1.11.3.min.js"></script>
+
+        <!-- bootstrap js
+        ============================================ -->
+        <script src="~/b-sale_ecommerce_fashion/js/bootstrap.min.js"></script>
+
+        <!-- nivo slider js
+        ============================================ -->
+        <script src="~/b-sale_ecommerce_fashion/js/jquery.nivo.slider.pack.js"></script>
+
+        <!-- Mean Menu js
+        ============================================ -->
+        <script src="~/b-sale_ecommerce_fashion/js/jquery.meanmenu.min.js"></script>
+
+        <!-- owl.carousel.min js
+        ============================================ -->
+        <script src="~/b-sale_ecommerce_fashion/js/owl.carousel.min.js"></script>
+
+        <!-- jquery price slider js
+        ============================================ -->
+        <script src="~/b-sale_ecommerce_fashion/js/jquery-price-slider.js"></script>
+
+        <!-- wow.js
+        ============================================ -->
+        <script src="~/b-sale_ecommerce_fashion/js/wow.js"></script>
+        <script>
+            new WOW().init();
+        </script>
+
+        <!-- plugins js
+        ============================================ -->
+        <script src="~/b-sale_ecommerce_fashion/js/plugins.js"></script>
+
+        <!-- main js
+        ============================================ -->
+        <script src="~/b-sale_ecommerce_fashion/js/main.js"></script>
+
+        <script src="~/js/ConfigurarLoja.js"></script>
+
+        <script src="~/Loading-indicator/js/jquery.Wload.js"></script>
+
+
+        @*</form>*@
+
+        @RenderSection("Scripts", required: false)
+
+        <script type="text/javascript">
+
+            function buscarProdutos() {
+
+                var categoria = $("#selectCategoriaTop").val();
+                var palavraChave = $("#palavraChaveTop").val();
+                var URL = "/Home/Loja";
+
+                //$.post(URL, { idCategoria: categoria, palavraChave: palavraChave, btnSubmit: "" });
+                //alert("categoria: " + categoria + " <-> palavraChave: " + palavraChave + " <-> URL: " + URL);
+                $.ajax({
+                    url: URL,
+                    type: 'post',
+                    data: { idCategoria: categoria, palavraChave: palavraChave, btnSubmit: "" },
+                    error: function (error) { alert("Não foi possivel a comunicação: " + error) },
+                    success: function (result) {
+                        $("#Body_Loja").html(result);
+                    },
+                });
+            }
+
+
+        </script>
+    </body>
+</html>
+}

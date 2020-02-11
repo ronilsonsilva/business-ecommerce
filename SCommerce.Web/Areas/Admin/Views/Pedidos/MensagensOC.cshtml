@@ -1,0 +1,171 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model SCommerce.Web.Areas.Admin.ViewModels.OCViewModel
+
+@{
+    ViewData["Title"] = "MensagensOC";
+    Layout = "~/Views/Shared/_AdminDashboard.cshtml";
+}
+
+<!-- Tell the browser to be responsive to screen width -->
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<!-- Bootstrap 3.3.7 -->
+@*<link rel="stylesheet" href="~/dashboard_components/bootstrap/dist/css/bootstrap.min.css">*@
+<!-- iCheck for checkboxes and radio inputs -->
+<link rel="stylesheet" href="~/dashboard_components/plugins/iCheck/all.css">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="~/dashboard_components/font-awesome/css/font-awesome.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet" href="~/dashboard_components/Ionicons/css/ionicons.min.css">
+
+<link rel="stylesheet" href="~/css/chatOC.css">
+<link rel="stylesheet" href="~/fine-uploader/fine-uploader-gallery.min.css">
+
+
+<style>
+    button#btnUpload {
+        margin-right: 35px;
+        background-color: #f8f8f8;
+        border: none;
+    }
+
+    i.fa.fa-paperclip {
+        color: #05728f;
+    }
+
+    .modal-dialog {
+        width: 80%;
+    }
+</style>
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Mensagens
+            @*<small>Cadastro</small>*@
+        </h1>
+        <ol class="breadcrumb">
+            <li><a asp-action="Index"><i class="fa fa-home"></i>Dashboard</a></li>
+            <li><a asp-action="Pedidos"><i class="fa fa-home"></i>Pedidos</a></li>
+            <li class="active">Mensagens</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="box b-commerce-box">
+            <div class="box-header">
+                <h2></h2>
+            </div>
+            <div class="box-body">
+                <div class="col-md-4">
+                    <h5>OC Referência: <b>@Model.Referencia</b></h5>
+                    <h5>Cliente: <b>@Model.Cliente.Nome</b></h5>
+                </div>
+                <div class="mesgs col-md-8">
+                    <div role="tabpanel" class="msg_history tab-pane" id="msg">
+                        <div id="historicomsg">
+                            @if (Model.OCMensagens != null)
+                            {
+                                foreach (var mensagem in Model.OCMensagens)
+                                {
+
+                                    @if (mensagem.idEmitente != Model.IdCliente)
+                                    {
+                                        <div class="outgoing_msg">
+                                            <div class="sent_msg">
+                                                @if (!String.IsNullOrEmpty(mensagem.Mensagem))
+                                                {
+                                                    <p>
+                                                        @mensagem.Mensagem
+                                                    </p>
+                                                }
+
+                                                @if (mensagem.Anexos.Count > 0)
+                                                {
+                                                    foreach (var anexo in mensagem.Anexos)
+                                                    {
+                                                        <a href='@Url.Action("BaixarAnexo","Pedidos", new { idAnexo = anexo.ID})' title="Baixar Arquivo" target="_blank">@anexo.Nome  <i class="fas fa-file-download"></i></a>
+                                                    }
+                                                }
+                                                <span class="time_date">
+                                                    @mensagem.Data.ToShortTimeString()   |    @mensagem.Data.ToShortDateString()
+                                                    @if (mensagem.Lida)
+                                                    {
+                                                        <i class="fa fa-check" style="color: cornflowerblue"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="fa fa-check"></i>
+                                                    }
+                                                </span>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="incoming_msg">
+                                            <div class="received_msg">
+                                                <div class="received_withd_msg">
+                                                    @if (!String.IsNullOrEmpty(mensagem.Mensagem))
+                                                    {
+                                                        <p>
+                                                            @mensagem.Mensagem
+                                                        </p>
+                                                    }
+
+                                                    @if (mensagem.Anexos.Count > 0)
+                                                    {
+                                                        foreach (var anexo in mensagem.Anexos)
+                                                        {
+                                                            <a href='@Url.Action("BaixarAnexo","Pedidos", new { idAnexo = anexo.ID})' title="Baixar Arquivo" target="_blank">@anexo.Nome  <i class="fas fa-file-download"></i></a>
+                                                        }
+                                                    }
+                                                    <span class="time_date">
+                                                        @mensagem.Data.ToShortTimeString()   |    @mensagem.Data.ToShortDateString()
+                                                        @if (mensagem.Lida)
+                                                        {
+                                                            <i class="fa fa-check" style="color: cornflowerblue"></i>
+                                                        }
+                                                        else
+                                                        {
+                                                            <i class="fa fa-check"></i>
+                                                        }
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+
+                                }
+
+                            }
+                        </div>
+                    </div>
+                    <div class="type_msg" style="align-items: baseline">
+                        <div class="input_msg_write">
+                            <input type="text" class="write_msg" placeholder="Digite a mensagem" id="txtmsg_@Model.ID" />
+                            <button class="msg_send_btn btn-upload" type="button" id="btnUpload" title="Anexar arquivo" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-paperclip" aria-hidden="true"></i></button>
+                            <button class="msg_send_btn btn_enviar_msg" type="button" id="@Model.ID|@Model.IdCliente" title="Enviar mensagem"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<partial name="~/Areas/Admin/Views/Modal/UploadChat.cshtml" />
+
+<!-- jQuery 3 -->
+<script src="~/dashboard_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="~/dashboard_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- iCheck 1.0.1 -->
+<script src="~/dashboard_components/plugins/iCheck/icheck.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="~/dashboard_components/dist/js/demo.js"></script>
+
+<script src="~/js/Chat.js"></script>
+
+
+

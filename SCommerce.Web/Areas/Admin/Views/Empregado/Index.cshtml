@@ -1,0 +1,143 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model IEnumerable<SCommerce.Web.Areas.Admin.ViewModels.EmpregadoViewModel>
+
+@{
+    ViewData["Title"] = "Empregados - Dashboard";
+    Layout = "~/Views/Shared/_AdminDashboard.cshtml";
+}
+
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Empregados
+            <small>@*Gestão de categorias*@</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a asp-area="Admin" asp-controller="Dashboard" asp-action="Index"><i class="fa fa-home"></i>Dashboard</a></li>
+            <li class="active">Empregado</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>@Model.Count()</h3>
+                        <p>Total de Categorias</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion-ios-box-outline"></i>
+                    </div>
+                    @*<a href='@Url.Action("Create","Empregado")' class="small-box-footer">Adicionar Novo <i class="fa fa-plus"></i></a>*@
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="">
+            <div class="box b-commerce-box">
+                <div class="box-header">
+                    <div class="row">
+                    </div>
+                </div>
+                <div class="box-body">
+                    <table id="table-empregado" class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Nome)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Usuario)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.UltimaConexao)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Cadastro)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Atualizado)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Nome)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Usuario)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UltimaConexao)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Cadastro)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Atualizado)
+                                    </td>
+                                    <td>
+                                        <a href='@Url.Action("Edit", "Empregado", new { idEmpregado = item.ID  })' class="mall-box-footers"><i class="fa fa-edit"></i></a>
+                                        <a href='@Url.Action("Details", "Empregado", new { idEmpregado = item.ID })' class="mall-box-footers"><i class="fa fa-search"></i></a>
+                                        <a href='@Url.Action("Delete", "Empregado", new { idEmpregado = item.ID })' class="mall-box-footers"><i class="fa  fa-trash-o"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Nome)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Usuario)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.UltimaConexao)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Cadastro)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Atualizado)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+
+<!-- jQuery 3 -->
+<script src="~/dashboard_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="~/dashboard_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script src="~/dashboard_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/dashboard_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#table-empregado').DataTable();
+    });
+</script>
+
+
+

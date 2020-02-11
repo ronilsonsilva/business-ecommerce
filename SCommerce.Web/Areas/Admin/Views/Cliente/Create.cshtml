@@ -1,0 +1,317 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model SCommerce.Web.Areas.Admin.ViewModels.ClienteViewModel
+
+@{
+    ViewData["Title"] = "Adicionar Cliente";
+    Layout = "~/Views/Shared/_AdminDashboard.cshtml";
+}
+
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Clientes
+            <small>Cadastro</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a asp-action="Index"><i class="fa fa-home"></i>Dashboard</a></li>
+            <li class="active">Clientes</li>
+        </ol>
+    </section>
+    
+    <section class="content">
+        <div class="box b-commerce-box">
+            <div class="box-header">
+                <h2>Adicionar Cliente</h2>
+            </div>
+            <div class="box-body">
+                @if (ViewBag.Error != null)
+                {
+                    foreach (var item in ViewBag.Error)
+                    {
+                        <p style="color:red"><b>@item</b></p>
+                    }
+                }
+                <form asp-controller="Cliente" asp-action="Create" method="post" role="form">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#tab_dados_pessoal" data-toggle="tab">Dados Pessoal</a></li>
+                            <li><a href="#tab_enderecos" data-toggle="tab">Endereços</a></li>
+                            <li><a href="#tab_telefones" data-toggle="tab">Telefone</a></li>
+                            @*<li><a href="#tab_email" data-toggle="tab">E-mail</a></li>
+                    <li><a href="#tab_rede_social" data-toggle="tab">Rede Social</a></li>*@
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab_dados_pessoal">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="Nome" class="control-label"></label>
+                                            <input asp-for="Nome" class="form-control" />
+                                            <span asp-validation-for="Nome" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="Email" class="control-label"></label>
+                                            <input asp-for="Email" class="form-control" />
+                                            <span asp-validation-for="Email" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="Usuario" class="control-label"></label>
+                                            <input asp-for="Usuario" class="form-control" />
+                                            <span asp-validation-for="Usuario" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="Nascimento" class="control-label"></label>
+                                            <input asp-for="Nascimento" class="form-control" />
+                                            <span asp-validation-for="Nascimento" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="Senha" class="control-label"></label>
+                                            <input asp-for="Senha" class="form-control" />
+                                            <span asp-validation-for="Senha" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="Senha1" class="control-label"></label>
+                                            <input asp-for="Senha1" class="form-control" />
+                                            <span asp-validation-for="Senha1" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label asp-for="Nota" class="control-label"></label>
+                                            <textarea asp-for="Nota" class="form-control"></textarea>
+                                            <span asp-validation-for="Nota" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input asp-for="NewsLetter" /> @Html.DisplayNameFor(model => model.NewsLetter)
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input asp-for="Ativo" /> @Html.DisplayNameFor(model => model.Ativo)
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab_enderecos">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label asp-for="EnderecoViewModel.Logradouro" class="control-label"></label>
+                                            <input asp-for="EnderecoViewModel.Logradouro" class="form-control" />
+                                            <span asp-validation-for="EnderecoViewModel.Logradouro" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="EnderecoViewModel.Numero" class="control-label"></label>
+                                            <input asp-for="EnderecoViewModel.Numero" class="form-control" />
+                                            <span asp-validation-for="EnderecoViewModel.Numero" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="EnderecoViewModel.Aliase" class="control-label"></label>
+                                            <input asp-for="EnderecoViewModel.Aliase" class="form-control" />
+                                            <span asp-validation-for="EnderecoViewModel.Aliase" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="EnderecoViewModel.Complemento" class="control-label"></label>
+                                            <input asp-for="EnderecoViewModel.Complemento" class="form-control" />
+                                            <span asp-validation-for="EnderecoViewModel.Complemento" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="EnderecoViewModel.idPais" class="control-label"></label>
+                                            <select asp-for="EnderecoViewModel.idPais" asp-items="@ViewBag.Paises" class="form-control">
+                                                <option disabled selected>---- Selecione ----</option>
+                                            </select>
+                                            <span asp-validation-for="EnderecoViewModel.idPais" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="EnderecoViewModel.idProvincia" class="control-label"></label>
+                                            <select asp-for="EnderecoViewModel.idProvincia" class="form-control">
+                                                <option disabled selected>---- Selecione ----</option>
+                                            </select>
+                                            <span asp-validation-for="EnderecoViewModel.idProvincia" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="EnderecoViewModel.idCidade" class="control-label"></label>
+                                            <select asp-for="EnderecoViewModel.idCidade" class="form-control">
+                                                <option disabled selected>---- Selecione ----</option>
+                                            </select>
+                                            <span asp-validation-for="EnderecoViewModel.idCidade" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="EnderecoViewModel.CodigoPostal" class="control-label"></label>
+                                            <input asp-for="EnderecoViewModel.CodigoPostal" class="form-control" />
+                                            <span asp-validation-for="EnderecoViewModel.CodigoPostal" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input asp-for="EnderecoViewModel.Ativo" /> @Html.DisplayNameFor(model => model.EnderecoViewModel.Ativo)
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane" id="tab_telefones">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="ContatoTelefoneViewModel.Operadora" class="control-label"></label>
+                                            <input asp-for="ContatoTelefoneViewModel.Operadora" class="form-control" />
+                                            <span asp-validation-for="ContatoTelefoneViewModel.Operadora" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="ContatoTelefoneViewModel.Descricao" class="control-label"></label>
+                                            <input asp-for="ContatoTelefoneViewModel.Descricao" class="form-control" />
+                                            <span asp-validation-for="ContatoTelefoneViewModel.Descricao" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="ContatoTelefoneViewModel.TipoContato" class="control-label"></label>
+                                            <select asp-for="ContatoTelefoneViewModel.TipoContato" asp-items="@ViewBag.TipoContato" class="form-control">
+                                                <option disabled selected>---- Selecione ----</option>
+                                            </select>
+                                            <span asp-validation-for="ContatoTelefoneViewModel.TipoContato" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="ContatoTelefoneViewModel.CodigoNacional" class="control-label"></label>
+                                            <input asp-for="ContatoTelefoneViewModel.CodigoNacional" class="form-control" />
+                                            <span asp-validation-for="ContatoTelefoneViewModel.CodigoNacional" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="ContatoTelefoneViewModel.CodigoLocal" class="control-label"></label>
+                                            <input asp-for="ContatoTelefoneViewModel.CodigoLocal" class="form-control" />
+                                            <span asp-validation-for="ContatoTelefoneViewModel.CodigoLocal" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label asp-for="ContatoTelefoneViewModel.Numero" class="control-label"></label>
+                                            <input asp-for="ContatoTelefoneViewModel.Numero" class="form-control" />
+                                            <span asp-validation-for="ContatoTelefoneViewModel.Numero" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane active" id="tab_email">
+                                <div class="row"></div>
+                                <div class="row"></div>
+                            </div>
+                            <div class="tab-pane active" id="tab_rede_social">
+                            </div>
+                        </div>
+                        <div clas="row">
+                            <div class="form-group col-md-2">
+                                <br />
+                                <button type="submit" class="btn btn-success btn-block btn-social">
+                                    <i class="fa fa-save"></i> Salvar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<!-- jQuery 3 -->
+<script src="~/dashboard_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="~/dashboard_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- iCheck 1.0.1 -->
+<script src="~/dashboard_components/plugins/iCheck/icheck.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="~/dashboard_components/dist/js/demo.js"></script>
+
+<script src="~/js/localizacao.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        
+        if ($("#EnderecoViewModel_idPais").val()) {
+            let idPais = $("#EnderecoViewModel_idPais").val();
+            carregarProvincias("EnderecoViewModel_idProvincia", idPais);
+        }
+        if ($("#EnderecoViewModel_idProvincia").val()) {
+            let idProvincia = $("#EnderecoViewModel_idProvincia").val();
+            carregarCidades("EnderecoViewModel_idCidade", idProvincia);
+        }
+
+        $("#EnderecoViewModel_idPais").change(function () {
+            let idPais = $("#EnderecoViewModel_idPais").val();
+            carregarProvincias("EnderecoViewModel_idProvincia", idPais);
+        });
+
+        $("#EnderecoViewModel_idProvincia").change(function () {
+            let idProvincia = $("#EnderecoViewModel_idProvincia").val();
+            carregarCidades("EnderecoViewModel_idCidade", idProvincia);
+        });
+    });
+</script>
+
+
+
+
+

@@ -1,0 +1,300 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model SCommerce.b2SalesFashion.ViewModels.ProdutoViewModel
+
+
+@{
+    ViewData["Title"] = "Produto";
+    Layout = "~/Views/Shared/_LayoutBSaleFashion.cshtml";
+}
+
+<link rel="stylesheet" href="~/product-gallery/css/main.css">
+<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<style>
+    .small-img {
+        width: 350px;
+        height: 70px;
+        margin-top: 10px;
+        position: relative;
+        left: 0px;
+    }
+    .show{
+        z-index: 10;
+    }
+</style>
+
+<!-- Breadcurb AREA -->
+<div class="breadcurb-area">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li><a asp-action="Index">Home</a></li>
+            <li><a href="#">@Model.CategoriaPadrao?.Nome</a></li>
+            <li>@Model?.NomeExibicao</li>
+        </ul>
+    </div>
+</div>
+<!-- Breadcurb AREA -->
+<!-- Product Item AREA -->
+<div class="product-item-area">
+    <div class="container">
+        <div class="row">
+            <!-- Menu a esquerda -->
+            <div class="col-md-3 col-sm-4">
+                <div class="product-item-categori">
+                    <div class="product-type">
+                        <h2>Outros Produtos</h2>
+                        <ul>
+                            @foreach (var item in ViewBag.OutrosProdutos)
+                            {
+                                if (item.ID == Model.IdCategoriaPadrao)
+                                {
+                                    <li><a href="#" class="active"><i class="fa fa-angle-right"></i>@item.Nome</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="#"><i class="fa fa-angle-right"></i>@item.Nome</a></li>
+                                }
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Menu a esquerda -->
+            <!-- Detalhe do Produto -->
+            <div class="col-md-9 col-sm-8">
+                <div class="row">
+                    <div class="col-md-5 col-sm-5">
+                        <div class="product-item-tab">
+                            <!-- Tab panes -->
+                            <div class="jquery-script-clear"></div>
+                            <div class="">
+                                @{
+                                    var base64_1 = Convert.ToBase64String(Model.imagensProduto.FirstOrDefault().Arquivo);
+                                    var imgSrc_1 = String.Format("data:image/gif;base64,{0}", base64_1);
+                                    <div class="show" href="@imgSrc_1" style="width: 350px; height: 496px;">
+                                        <img src="@imgSrc_1" id="show-img" style="width: 350px; height: 496px;">
+                                    </div>
+                                }
+                                <div class="small-img">
+                                    <img src="~/product-gallery/images/online_icon_right@2x.png" class="icon-left" alt="" id="prev-img">
+                                    <div class="small-container">
+                                        <div id="small-img-roll">
+                                            @foreach (var item in Model.imagensProduto)
+                                            {
+                                                var base64_ = Convert.ToBase64String(item.Arquivo);
+                                                var imgSrc_ = String.Format("data:image/gif;base64,{0}", base64_);
+                                                <img src="@imgSrc_" class="show-small-img" alt="">
+                                            }
+
+
+                                        </div>
+                                    </div>
+                                    <img src="~/product-gallery/images/online_icon_right@2x.png" class="icon-right" alt="" id="next-img">
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-7 col-sm-7">
+                        <div class="product-tab-content">
+                            <div class="product-tab-header">
+                                <h1>@Model.NomeExibicao</h1>
+                                @*<div class="best-product-rating">
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <p>(3 costomar review)</p>
+                                    </div>*@
+                                <h3>R$@Model.Preco</h3>
+                            </div>
+                            <div class="product-item-code">
+                                <p>Código:   @Model.EAN13</p>
+                                @if (Model.Disponivel)
+                                {
+                                    <p>Disponível :   SIM</p>
+                                }
+                                else
+                                {
+                                    <p style="color:red"><b>INDISPONÍVEL</b></p>
+                                }
+
+                            </div>
+                            <div class="product-item-details">
+                                <p>@Model.DescricaoCurta</p>
+                            </div>
+                            @*<div class="size-chart">
+                                    <p>Size Chart: <i class="fa fa-plus"></i></p>
+                                </div>*@
+                            <div class="available-option">
+                                <h2>Opções Disponíveis</h2>
+                                @if (Model?.ProdutoPropriedadesViewmodel?.Count > 0)
+                                {
+                                    @foreach (var item in Model?.ProdutoPropriedadesViewmodel)
+                                    {
+                                        if (item.Propriedade.PropriedadeValors.Count > 0)
+                                        {
+                                            if (item?.Propriedade?.ValorUnico == true && item?.Propriedade?.PropriedadeValors?.FirstOrDefault()?.TipoDado == SCommerce.Domain.Enum.Dados.codigo_cor_hexadecimal)
+                                            {
+                                                <div class="color-option fix">
+                                                    <p>@item.Propriedade.Nome</p>
+                                                    @foreach (var item2 in item.Propriedade.PropriedadeValors)
+                                                    {
+                                                        <a href="#" class="color-1" style="background-color:@item2.Valor"></a>
+                                                    }
+                                                </div>
+                                            }
+                                            else if (item.Propriedade.ValorUnico && item.Propriedade.PropriedadeValors.FirstOrDefault()?.TipoDado == SCommerce.Domain.Enum.Dados.codigo_rgb)
+                                            {
+                                                <div class="color-option fix">
+                                                    <p>@item.Propriedade.Nome</p>
+                                                    @foreach (var item2 in item.Propriedade.PropriedadeValors)
+                                                    {
+                                                        <a href="#" class="color-1" style="background-color:RGB(@item2.Valor)"></a>
+                                                    }
+
+                                                </div>
+                                            }
+                                            else if (item.Propriedade.ValorUnico && item.Propriedade.PropriedadeValors.FirstOrDefault()?.TipoDado == SCommerce.Domain.Enum.Dados.booleano)
+                                            {
+                                                <div class="size-option fix">
+                                                    <p>@item?.Propriedade?.Nome</p>
+                                                    <select>
+                                                        <option>Selecione uma opção</option>
+                                                        @foreach (var item2 in item.Propriedade.PropriedadeValors)
+                                                        {
+                                                            <option value="@item2.Valor">@item2.Nome</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="size-option fix">
+                                                    <p>@item?.Propriedade?.Nome</p>
+                                                    <select>
+                                                        <option>Selecione uma opção</option>
+                                                        @foreach (var item2 in item.Propriedade.PropriedadeValors)
+                                                        {
+                                                            <option value="@item2.Valor">@item2.Nome</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                            }
+                                        }
+                                    }
+                                }
+                            </div>
+                            <hr />
+                            <div class="row row-no-padding">
+                                <div class="col-md-6">
+                                    <a href='@Url.Action("AddCarrinho", "Home", new { idProduto = Model.ID })' class="btn btn-primary">Adicionar | <i class="fa fa-shopping-cart"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="description-tab">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#description" role="tab" data-toggle="tab">Descrição</a></li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="description">
+                                    <div class="conteudo-descricao-produto">
+                                        @Html.Raw(Model.Referencia)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="single-product-slider similar-product">
+                            <div class="product-items">
+                                <h2 class="product-header">Produtos Similares</h2>
+                                <div class="row">
+                                    <div id="singleproduct-slider" class="owl-carousel">
+                                        @foreach (var item in ViewBag.ProdutosSimilares)
+                                        {
+                                            <div class="col-md-4">
+                                                <div class="single-product">
+                                                    <div class="single-product-img">
+                                                        <a class="img-produtos-similares" href='@Url.Action("Produto", "Home", new { idProduto = item.ID })'>
+                                                            @{
+                                                                if (item.imagensProduto.Count >= 2)
+                                                                {
+                                                                    var base64 = Convert.ToBase64String(item.imagensProduto[0].Arquivo);
+                                                                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                                                    var base642 = Convert.ToBase64String(item.imagensProduto[1].Arquivo);
+                                                                    var imgSrc2 = String.Format("data:image/gif;base64,{0}", base642);
+                                                                    <img class="primary-img" src="@imgSrc" alt="product">
+                                                                    <img class="secondary-img" src="@imgSrc2" alt="product">
+                                                                }
+                                                                else if (item.imagensProduto.Count > 0)
+                                                                {
+                                                                    var base64 = Convert.ToBase64String(item.imagensProduto[0].Arquivo);
+                                                                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                                                    <img class="primary-img" src="@imgSrc" alt="product">
+                                                                    <img class="secondary-img" src="@imgSrc" alt="product">
+                                                                }
+
+                                                            }
+                                                        </a>
+                                                        <div class="single-product-action">
+                                                            <a href='@Url.Action("Produto", "Home", new { idProduto = item.ID })'><i class="fa fa-external-link-alt"></i></a>
+                                                            <a href="#"><i class="fa fa-shopping-cart"></i></a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="single-product-content">
+                                                        <div class="product-content-left">
+                                                            <h2><a href='@Url.Action("Produto", "Home", new { idProduto = item.ID })'>@Model.CategoriaPadrao?.Nome</a></h2>
+                                                            <p>@item.NomeExibicao</p>
+                                                        </div>
+                                                        <div class="product-content-right">
+                                                            <h3>R$ @item.Preco</h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Detalhe do Produto -->
+
+        </div>
+    </div>
+</div>
+<!-- Product Item AREA -->
+<script type="text/javascript"
+        src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
+<script src="~/product-gallery/scripts/zoom-image.js"></script>
+<script src="~/product-gallery/scripts/main.js"></script>
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-36251023-1']);
+    _gaq.push(['_setDomainName', 'jqueryscript.net']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+</script>
